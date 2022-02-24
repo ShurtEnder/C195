@@ -1,31 +1,28 @@
 package main;
 
-import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-import DBA.JDBC;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-import javax.xml.crypto.Data;
+import static java.util.ResourceBundle.getBundle;
 
 public class Main extends Application {
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.fxml")));
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginPage.fxml")));
         primaryStage.setTitle("First View");
         primaryStage.setScene(new Scene(root, 1200, 400));
         primaryStage.show();
-         */
+
 
     }
 
@@ -36,7 +33,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args){
-        JDBC.openConnection();
+        /*JDBC.openConnection();*/
+        ResourceBundle rb = getBundle("test/Nat", Locale.getDefault());
+
+        if(Locale.getDefault().getLanguage().equals("en")
+                || Locale.getDefault().getLanguage().equals("es")
+                || Locale.getDefault().getLanguage().equals("fr"))
+            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
 
         launch(args);
 
