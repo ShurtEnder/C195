@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import DBA.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginPage.fxml")));
         primaryStage.setTitle("First View");
-        primaryStage.setScene(new Scene(root, 1200, 400));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
 
@@ -33,13 +34,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args){
-        /*JDBC.openConnection();*/
-        ResourceBundle rb = getBundle("test/Nat", Locale.getDefault());
+        JDBC.openConnection();
 
-        if(Locale.getDefault().getLanguage().equals("en")
-                || Locale.getDefault().getLanguage().equals("es")
-                || Locale.getDefault().getLanguage().equals("fr"))
-            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
 
         launch(args);
 
