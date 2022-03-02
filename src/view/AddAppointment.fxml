@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointment">
+   <children>
+      <VBox alignment="CENTER" layoutX="50.0" layoutY="76.0" prefHeight="500.0" prefWidth="500.0">
+         <children>
+            <GridPane alignment="CENTER" prefHeight="259.0" prefWidth="500.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="103.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="397.0" minWidth="10.0" prefWidth="397.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Appointment ID:" />
+                  <Label text="Customer ID:" GridPane.rowIndex="1" />
+                  <Label text="User ID:" GridPane.rowIndex="2" />
+                  <Label text="Title:" GridPane.rowIndex="3" />
+                  <Label text="Description:" GridPane.rowIndex="4" />
+                  <Label text="Location:" GridPane.rowIndex="5" />
+                  <Label text="Type:" GridPane.rowIndex="6" />
+                  <TextField fx:id="addAppAppIDTxt" disable="true" editable="false" maxWidth="150.0" promptText="Auto Generated" GridPane.columnIndex="1" />
+                  <TextField fx:id="addAppCustIDTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="addAppUserIDTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="addAppTitleTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextArea fx:id="addAppDescTxt" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="addAppLocTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="addAppTypeTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="500.0" spacing="23.0">
+               <children>
+                  <Label text="Contact Name:" />
+                  <ComboBox fx:id="addAppContNameCombo" onAction="#onActionAddAppContNameCombo" prefHeight="25.0" prefWidth="156.0" promptText="Select Contact Name" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="500.0" spacing="15.0">
+               <children>
+                  <Label text="Start Time/Date:" />
+                  <ComboBox fx:id="addAppStartCombo" onAction="#onActionAddAppStartCombo" prefWidth="150.0" promptText="Select Time" />
+                  <DatePicker fx:id="addAppStartDateCal" onAction="#onActionAddAppStartDateCal" promptText="Choose a Date" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="220.0" prefHeight="42.0" prefWidth="500.0" spacing="15.0">
+               <children>
+                  <Label text="End Time/Date:">
+                     <padding>
+                        <Insets right="4.0" />
+                     </padding></Label>
+                  <ComboBox fx:id="addAppEndCombo" onAction="#onActionAddAppEndCombo" prefWidth="150.0" promptText="Select Time" />
+                  <DatePicker fx:id="addAppEndDateCal" onAction="#onActionAddAppEndDateCal" promptText="Choose a Date" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="500.0" spacing="15.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onActionAddAppSaveBttn" text="Save" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionAddCustCancelBttn" text="Cancel" />
+               </children></HBox>
+         </children>
+      </VBox>
+      <Label layoutX="50.0" layoutY="59.0" text="Add Appointment">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

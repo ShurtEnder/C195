@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddCustomer">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomer">
    <children>
       <VBox alignment="CENTER" layoutX="50.0" layoutY="67.0" prefHeight="300.0" prefWidth="500.0">
          <children>
@@ -35,8 +35,8 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0">
                <children>
-                  <ComboBox prefWidth="150.0" promptText="Select Country" />
-                  <ComboBox prefHeight="25.0" prefWidth="178.0" promptText="Select  First Level Division" />
+                  <ComboBox fx:id="addCustCountyCombo" onAction="#onActionAddCustCountyCombo" prefWidth="150.0" promptText="Select Country" />
+                  <ComboBox fx:id="addCustFLDCombo" onAction="#onActionAddCustFLDCombo" prefHeight="25.0" prefWidth="178.0" promptText="Select First Level Division" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="500.0" spacing="15.0">
