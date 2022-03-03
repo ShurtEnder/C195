@@ -1,9 +1,16 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainMenu {
     public TableView custTableView;
@@ -22,22 +29,42 @@ public class MainMenu {
     public TableColumn appSECol;
     public Label custInfoLbl;
 
-    public void onActionAddCustBttn(ActionEvent actionEvent) {
+    Stage stage;
+    Parent scene;
+
+    public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
-    public void onActionUpCustBttn(ActionEvent actionEvent) {
+    public void onActionUpCustBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/UpdateCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void onActionDelCustBttn(ActionEvent actionEvent) {
     }
 
     public void onActionSelCustBttn(ActionEvent actionEvent) {
+
     }
 
-    public void onActionAddAppBttn(ActionEvent actionEvent) {
+    public void onActionAddAppBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
-    public void onActionUpAppBttn(ActionEvent actionEvent) {
+    public void onActionUpAppBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void onActionRemAppBttn(ActionEvent actionEvent) {

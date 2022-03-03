@@ -1,9 +1,14 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +29,9 @@ public class LoginPage implements Initializable {
     public Label passwordLbl;
     public Button loginBttnTxt;
     public Label zoneIDLbl;
+
+    Stage stage;
+    Parent scene;
 
     public String[] stringList(String str){
        String[] splited = str.split("\\s+");
@@ -146,7 +154,7 @@ public class LoginPage implements Initializable {
 
     }
 
-    public void onActionLoginBttn(ActionEvent actionEvent) throws SQLException {
+    public void onActionLoginBttn(ActionEvent actionEvent) throws SQLException, IOException {
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         String message = "No user or password found!";
 
@@ -167,8 +175,11 @@ public class LoginPage implements Initializable {
 
 
             if(usernameDB.equals(userNameTxt.getText()) && passwordDB.equals(passwordTxt.getText())){
-                System.out.println("User found!");
                 userFound = true;
+                stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
             }
 
         }

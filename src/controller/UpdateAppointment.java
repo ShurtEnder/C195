@@ -1,10 +1,13 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class UpdateAppointment {
     public TextField upAppAppIDTxt;
@@ -19,6 +22,9 @@ public class UpdateAppointment {
     public DatePicker upAppStartDateCal;
     public ComboBox upAppEndCombo;
     public DatePicker upAppEndDateCal;
+
+    Stage stage;
+    Parent scene;
 
     public void onActionUpAppContNameCombo(ActionEvent actionEvent) {
     }
@@ -35,9 +41,17 @@ public class UpdateAppointment {
     public void onActionUpAppEndDateCal(ActionEvent actionEvent) {
     }
 
-    public void onActionUpAppSaveBttn(ActionEvent actionEvent) {
+    public void onActionUpAppSaveBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
-    public void onActionUpCustCancelBttn(ActionEvent actionEvent) {
+    public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 }
