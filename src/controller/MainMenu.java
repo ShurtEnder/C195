@@ -1,18 +1,35 @@
 package controller;
 
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import model.DBProvider;
+import model.DataProvider;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainMenu {
+import static DBA.JDBC.connection;
+
+public class MainMenu implements Initializable {
     public TableView custTableView;
     public TableColumn custIDCol;
     public TableColumn custNameCol;
@@ -28,9 +45,43 @@ public class MainMenu {
     public TableColumn appTypeCol;
     public TableColumn appSECol;
     public Label custInfoLbl;
+    private ObservableList test = FXCollections.observableArrayList();
 
     Stage stage;
     Parent scene;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ResultSet rs = null;
+        List stuff = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
+            while(rs.next()){
+                int custID = Integer.parseInt(rs.getString(1));
+                String custName = rs.getString(2);
+                String custAdd = rs.getString(3);
+                String custPC = rs.getString(4);
+                String custPhone = rs.getString(5);
+                int custDID = Integer.parseInt(rs.getString(10));
+                DBProvider dbInfo = new DBProvider(custID,custName,custAdd,custPC, custPhone, custDID);
+                DataProvider.addCustomer(dbInfo);
+
+
+            }
+            custTableView.setItems(DataProvider.getAllCustomers());
+            custIDCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
+            custNameCol.setCellValueFactory(new PropertyValueFactory<>("custName"));
+            custAddCol.setCellValueFactory(new PropertyValueFactory<>("custAdd"));
+            custCodeCol.setCellValueFactory(new PropertyValueFactory<>("custPC"));
+            custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
+            custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
