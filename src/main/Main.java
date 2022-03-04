@@ -1,11 +1,12 @@
 package main;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import DBA.JDBC;
 import javafx.application.Application;
@@ -13,7 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.DBProvider;
+import model.DBProviderDID;
+import model.DataProvider;
 
+import static DBA.JDBC.connection;
 import static java.util.ResourceBundle.getBundle;
 
 public class Main extends Application {
@@ -71,6 +76,34 @@ public class Main extends Application {
         System.out.println(zoneStrUTC);
 
         System.out.println(zoneStrEST);*/
+
+        ResultSet rs = null;
+        try {
+            Statement stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
+            while(rs.next()){
+                int custID = Integer.parseInt(rs.getString(1));
+                String custName = rs.getString(2);
+                String custAdd = rs.getString(3);
+                String custPC = rs.getString(4);
+                String custPhone = rs.getString(5);
+                int custDID = Integer.parseInt(rs.getString(10));
+                DBProvider dbInfo = new DBProvider(custID,custName,custAdd,custPC, custPhone, custDID);
+                DataProvider.addCustomer(dbInfo);
+
+            }
+            rs = stmt.executeQuery("SELECT * FROM client_schedule.countries");
+            while(rs.next()){
+                int countryID = Integer.parseInt(rs.getString(1));
+                String country = rs.getString(2);
+                DBProviderDID dbCountry = new DBProviderDID(countryID,country);
+                DataProvider.addCountry(dbCountry);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
 

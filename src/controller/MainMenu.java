@@ -52,23 +52,7 @@ public class MainMenu implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ResultSet rs = null;
-        List stuff = new ArrayList<>();
-        try {
-            Statement stmt = connection.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
-            while(rs.next()){
-                int custID = Integer.parseInt(rs.getString(1));
-                String custName = rs.getString(2);
-                String custAdd = rs.getString(3);
-                String custPC = rs.getString(4);
-                String custPhone = rs.getString(5);
-                int custDID = Integer.parseInt(rs.getString(10));
-                DBProvider dbInfo = new DBProvider(custID,custName,custAdd,custPC, custPhone, custDID);
-                DataProvider.addCustomer(dbInfo);
 
-
-            }
             custTableView.setItems(DataProvider.getAllCustomers());
             custIDCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
             custNameCol.setCellValueFactory(new PropertyValueFactory<>("custName"));
@@ -77,9 +61,7 @@ public class MainMenu implements Initializable {
             custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
             custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
