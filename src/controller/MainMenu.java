@@ -15,10 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.DBAppointment;
-import model.DBProvider;
-import model.DataProvider;
-import model.TimeFunctions;
+import model.*;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
@@ -58,6 +55,37 @@ public class MainMenu implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ResultSet rs = null;
+        try {
+            DataProvider.getAllCustomers().clear();
+            Statement stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
+            while(rs.next()){
+                int custID = Integer.parseInt(rs.getString(1));
+                String custName = rs.getString(2);
+                String custAdd = rs.getString(3);
+                String custPC = rs.getString(4);
+                String custPhone = rs.getString(5);
+                int custDID = Integer.parseInt(rs.getString(10));
+                DBProvider dbInfo = new DBProvider(custID,custName,custAdd,custPC, custPhone, custDID);
+                DataProvider.addCustomer(dbInfo);
+
+            }
+            rs = stmt.executeQuery("SELECT * FROM client_schedule.countries");
+            while(rs.next()){
+                int countryID = Integer.parseInt(rs.getString(1));
+                String country = rs.getString(2);
+                DBProviderDID dbCountry = new DBProviderDID(countryID,country);
+                DataProvider.addCountry(dbCountry);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         custTableView.setItems(DataProvider.getAllCustomers());
         custIDCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("custName"));
@@ -73,6 +101,8 @@ public class MainMenu implements Initializable {
         appLocCol.setCellValueFactory(new PropertyValueFactory<>("Loc"));
         appTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
         appSECol.setCellValueFactory(new PropertyValueFactory<>("combSE"));
+
+
 
     }
 

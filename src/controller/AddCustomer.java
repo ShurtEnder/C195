@@ -1,5 +1,6 @@
 package controller;
 
+import DBA.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import model.DataProvider;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,6 +36,12 @@ public class AddCustomer implements Initializable {
     public TextField addCustPNumberTxt;
     public ComboBox addCustCountyCombo;
     public ComboBox addCustFLDCombo;
+    private String sqlQuery = "INSERT INTO client_schedule.customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?,?,?,?,?)";
+    private int intDID;
+    /*
+    private String sqlQuery = "insert into client_schedule.customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES ('Test', 'Test', 'Test', 'Test','24')";
+
+     */
 
     Stage stage;
     Parent scene;
@@ -67,19 +75,41 @@ public class AddCustomer implements Initializable {
     }
 
     public void onActionAddCustSaveBttn(ActionEvent actionEvent) throws IOException {
-        try{
+        try {
+            PreparedStatement psti = connection.prepareStatement(sqlQuery);
+            String strQuery = "SELECT Division_ID FROM client_schedule.first_level_divisions where Division = ?";
+            PreparedStatement psti2 = connection.prepareStatement(strQuery);
+            ResultSet rs = null;
+
             String custName = addCustNameTxt.getText();
             String custAdd = addCustAddressTxt.getText();
             String custPC = addCustPCodeTxt.getText();
             String custPhone = addCustPNumberTxt.getText();
-            int custDID = (int) addCustFLDCombo.getSelectionModel().getSelectedItem();
+            String custDID = String.valueOf(addCustFLDCombo.getSelectionModel().getSelectedItem());
 
-        }
-        catch (NumberFormatException Ex){
+            psti2.setString(1, String.valueOf(custDID));
+            rs = psti2.executeQuery();
+            int custDIDo = 0;
+            while (rs.next()) {
+                custDIDo = rs.getInt(1);
+            }
+
+            psti.setString(1, custName);
+            psti.setString(2, custAdd);
+            psti.setString(3, custPC);
+            psti.setString(4, custPhone);
+            psti.setInt(5, custDIDo);
+
+            psti.execute();
+
+
+        } catch (NumberFormatException Ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
             alert.setContentText("Enter valid values in all text fields!");
             alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -88,7 +118,7 @@ public class AddCustomer implements Initializable {
         stage.show();
     }
 
-    public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
         stage.setScene(new Scene(scene));
