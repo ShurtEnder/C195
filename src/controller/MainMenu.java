@@ -15,14 +15,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.DBAppointment;
 import model.DBProvider;
 import model.DataProvider;
+import model.TimeFunctions;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,22 +52,27 @@ public class MainMenu implements Initializable {
     public TableColumn appTypeCol;
     public TableColumn appSECol;
     public Label custInfoLbl;
-    private ObservableList test = FXCollections.observableArrayList();
 
     Stage stage;
     Parent scene;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        custTableView.setItems(DataProvider.getAllCustomers());
+        custIDCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("custName"));
+        custAddCol.setCellValueFactory(new PropertyValueFactory<>("custAdd"));
+        custCodeCol.setCellValueFactory(new PropertyValueFactory<>("custPC"));
+        custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
+        custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
 
-            custTableView.setItems(DataProvider.getAllCustomers());
-            custIDCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
-            custNameCol.setCellValueFactory(new PropertyValueFactory<>("custName"));
-            custAddCol.setCellValueFactory(new PropertyValueFactory<>("custAdd"));
-            custCodeCol.setCellValueFactory(new PropertyValueFactory<>("custPC"));
-            custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
-            custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
-
+        appTableView.setItems(DataProvider.getAllAppointments());
+        appIDCol.setCellValueFactory(new PropertyValueFactory<>("AppID"));
+        appCustIDCol.setCellValueFactory(new PropertyValueFactory<>("CustID"));
+        appTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        appLocCol.setCellValueFactory(new PropertyValueFactory<>("Loc"));
+        appTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        appSECol.setCellValueFactory(new PropertyValueFactory<>("combSE"));
 
 
     }
@@ -83,6 +95,35 @@ public class MainMenu implements Initializable {
     }
 
     public void onActionSelCustBttn(ActionEvent actionEvent) {
+            DataProvider.getAllAppointments().clear();
+            DBProvider selected = (DBProvider) custTableView.getSelectionModel().getSelectedItem();
+            String strQuery = "SELECT Appointment_ID, Customer_ID, Title, Location, Type, Start, End FROM appointments WHERE Appointment_ID = '" + selected.getCustID() + "'";
+            ResultSet rs = null;
+            try{
+                Statement stmt = connection.createStatement();
+                rs = stmt.executeQuery(strQuery);
+                while(rs.next()){
+                    int AppID = Integer.parseInt(rs.getString(1));
+                    int CustID = Integer.parseInt(rs.getString(2));
+                    String Title = rs.getString(3);
+                    String Loc = rs.getString(4);
+                    String Type = rs.getString(5);
+                    LocalDateTime Start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
+                    LocalDate date = TimeFunctions.zdtToDate(Start);
+                    LocalTime time1 = TimeFunctions.zdtToTime(Start);
+                    LocalDateTime End = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
+                    LocalTime time2 = TimeFunctions.zdtToTime(End);
+
+                    String combSE = date + " " + time1 + " " + time2;
+                    DBAppointment appointment = new DBAppointment(AppID,CustID,Title,Loc,Type,Start,End,combSE);
+                    DataProvider.addAppointment(appointment);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            custInfoLbl.setText("Showing Info of Customer: " + selected.getCustName());
+
 
     }
 

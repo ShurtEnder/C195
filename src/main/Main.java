@@ -1,9 +1,6 @@
 package main;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -17,6 +14,7 @@ import javafx.stage.Stage;
 import model.DBProvider;
 import model.DBProviderDID;
 import model.DataProvider;
+import model.TimeFunctions;
 
 import static DBA.JDBC.connection;
 import static java.util.ResourceBundle.getBundle;
@@ -104,7 +102,12 @@ public class Main extends Application {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        String test = "2020-05-28 12:00:00";
+        LocalDateTime testLDT = Timestamp.valueOf(test).toLocalDateTime();
+        System.out.println(testLDT);
+        LocalDate dateStr = TimeFunctions.zdtToDate(testLDT);
+        LocalTime timeStr = TimeFunctions.zdtToTime(testLDT);
+        System.out.println(dateStr + " " +timeStr);
 
 
 
