@@ -74,7 +74,6 @@ public class MainMenu implements Initializable {
         appTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
         appSECol.setCellValueFactory(new PropertyValueFactory<>("combSE"));
 
-
     }
 
     public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
@@ -144,6 +143,10 @@ public class MainMenu implements Initializable {
     public void onActionRemAppBttn(ActionEvent actionEvent) {
     }
 
-    public void onActionViewAppBttn(ActionEvent actionEvent) {
+    public void onActionViewAppBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/AppointmentWeekMonth.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 }

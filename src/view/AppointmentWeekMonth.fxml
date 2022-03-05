@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentWeekMonth">
+   <children>
+      <VBox layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="900.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="500.0" spacing="75.0">
+               <children>
+                  <Label fx:id="selectionMWLbl" text="Select Month/Week: " />
+                  <RadioButton mnemonicParsing="false" onAction="#onActionMonthRBttn" text="Month">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="MonthWeek" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton mnemonicParsing="false" onAction="#onActionWeekRBttn" text="Week" toggleGroup="$MonthWeek" />
+               </children>
+            </HBox>
+            <Label text="Currently Showing: All Appointments">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="225.0" prefWidth="501.0">
+              <columns>
+                <TableColumn fx:id="appVAppIDCol" prefWidth="90.0" text="Appt. ID" />
+                <TableColumn fx:id="appVTitleCol" prefWidth="90.0" text="Title" />
+                  <TableColumn fx:id="appVDescCol" prefWidth="90.0" text="Description" />
+                  <TableColumn fx:id="appVLocCol" prefWidth="90.0" text="Location" />
+                  <TableColumn fx:id="appVContactCol" prefWidth="90.0" text="Contact" />
+                  <TableColumn fx:id="appVTypeCol" prefWidth="90.0" text="Type" />
+                  <TableColumn fx:id="appVStartCol" prefWidth="90.0" text="Start Date/Time" />
+                  <TableColumn fx:id="appVEndCol" prefWidth="90.0" text="End Date/Time" />
+                  <TableColumn fx:id="appVCustIDCol" prefWidth="90.0" text="Cust. ID" />
+                  <TableColumn fx:id="appVUserIDCol" prefWidth="90.0" text="User ID" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="500.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onActionBackBttn" text="Back" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children></VBox>
+      <Label layoutX="50.0" layoutY="14.0" text="Appointments">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

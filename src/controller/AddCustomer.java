@@ -103,7 +103,6 @@ public class AddCustomer implements Initializable {
             list.add(country.getCountry());
         }
 
-
         addCustCountyCombo.setItems(list);
     }
 }
