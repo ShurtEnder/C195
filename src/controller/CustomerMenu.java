@@ -1,8 +1,5 @@
 package controller;
 
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,24 +8,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.*;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
-public class MainMenu implements Initializable {
+public class CustomerMenu implements Initializable {
     public TableView custTableView;
     public TableColumn custIDCol;
     public TableColumn custNameCol;
@@ -66,7 +56,7 @@ public class MainMenu implements Initializable {
                 String custPC = rs.getString(4);
                 String custPhone = rs.getString(5);
                 int custDID = Integer.parseInt(rs.getString(10));
-                DBProvider dbInfo = new DBProvider(custID,custName,custAdd,custPC, custPhone, custDID);
+                DBCustomer dbInfo = new DBCustomer(custID,custName,custAdd,custPC, custPhone, custDID);
                 DataProvider.addCustomer(dbInfo);
 
             }
@@ -74,7 +64,7 @@ public class MainMenu implements Initializable {
             while(rs.next()){
                 int countryID = Integer.parseInt(rs.getString(1));
                 String country = rs.getString(2);
-                DBProviderDID dbCountry = new DBProviderDID(countryID,country);
+                DBCountryDID dbCountry = new DBCountryDID(countryID,country);
                 DataProvider.addCountry(dbCountry);
             }
 
@@ -92,6 +82,7 @@ public class MainMenu implements Initializable {
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
         custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
 
+        /*
         appTableView.setItems(DataProvider.getAllAppointments());
         appIDCol.setCellValueFactory(new PropertyValueFactory<>("AppID"));
         appCustIDCol.setCellValueFactory(new PropertyValueFactory<>("CustID"));
@@ -99,6 +90,8 @@ public class MainMenu implements Initializable {
         appLocCol.setCellValueFactory(new PropertyValueFactory<>("Loc"));
         appTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
         appSECol.setCellValueFactory(new PropertyValueFactory<>("combSE"));
+
+         */
 
 
 
@@ -117,7 +110,7 @@ public class MainMenu implements Initializable {
             loader.setLocation(getClass().getResource("/view/UpdateCustomer.fxml"));
             loader.load();
             UpdateCustomer UPController = loader.getController();
-            UPController.sendCust((DBProvider) custTableView.getSelectionModel().getSelectedItem());
+            UPController.sendCust((DBCustomer) custTableView.getSelectionModel().getSelectedItem());
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
@@ -142,7 +135,7 @@ public class MainMenu implements Initializable {
                 alert.showAndWait();
             }
             else {
-                int custID2 = ((DBProvider) custTableView.getSelectionModel().getSelectedItem()).getCustID();
+                int custID2 = ((DBCustomer) custTableView.getSelectionModel().getSelectedItem()).getCustID();
                 PreparedStatement psti = connection.prepareStatement(sqlQuery);
                 PreparedStatement psti2 = connection.prepareStatement(sqlQuery2);
                 ResultSet rs = null;
@@ -169,7 +162,7 @@ public class MainMenu implements Initializable {
                             String custPC = rs.getString(4);
                             String custPhone = rs.getString(5);
                             int custDID = Integer.parseInt(rs.getString(10));
-                            DBProvider dbInfo = new DBProvider(custID,custName,custAdd,custPC, custPhone, custDID);
+                            DBCustomer dbInfo = new DBCustomer(custID,custName,custAdd,custPC, custPhone, custDID);
                             DataProvider.addCustomer(dbInfo);
 
                         }
@@ -188,10 +181,11 @@ public class MainMenu implements Initializable {
 
     }
 
-    public void onActionSelCustBttn(ActionEvent actionEvent) {
+    public void onActionAddAppBttn(ActionEvent actionEvent) throws IOException {
+        /*
         try{
             DataProvider.getAllAppointments().clear();
-            DBProvider selected = (DBProvider) custTableView.getSelectionModel().getSelectedItem();
+            DBCustomer selected = (DBCustomer) custTableView.getSelectionModel().getSelectedItem();
             String strQuery = "SELECT Appointment_ID, Customer_ID, Title, Location, Type, Start, End FROM appointments WHERE Customer_ID = '" + selected.getCustID() + "'";
             ResultSet rs = null;
             Statement stmt = connection.createStatement();
@@ -223,31 +217,18 @@ public class MainMenu implements Initializable {
                 alert.showAndWait();
             }
 
-    }
-
-    public void onActionAddAppBttn(ActionEvent actionEvent) throws IOException {
+         */
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+
     }
 
-    public void onActionUpAppBttn(ActionEvent actionEvent) throws IOException {
+    public void onActionCustBackBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
-
-    public void onActionRemAppBttn(ActionEvent actionEvent) {
-    }
-
-    public void onActionViewAppBttn(ActionEvent actionEvent) throws IOException {
-
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AppointmentWeekMonth.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-
     }
 }

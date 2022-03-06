@@ -1,10 +1,10 @@
 package model;
 
-public class DBProvider {
+public class DBCustomer {
     private int custID,custDID;
     private String custName, custAdd, custPC, custPhone;
 
-    public DBProvider(int custID, String custName, String custAdd, String custPC, String custPhone, int custDID){
+    public DBCustomer(int custID, String custName, String custAdd, String custPC, String custPhone, int custDID){
         this.custID = custID;
         this.custName = custName;
         this.custAdd = custAdd;

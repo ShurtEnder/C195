@@ -43,14 +43,14 @@ public class UpdateAppointment {
 
     public void onActionUpAppSaveBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }

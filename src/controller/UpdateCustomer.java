@@ -11,8 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.DBProvider;
-import model.DBProviderDID;
+import model.DBCustomer;
+import model.DBCountryDID;
 import model.DataProvider;
 
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class UpdateCustomer implements Initializable {
     Stage stage;
     Parent scene;
 
-    public void sendCust(DBProvider cust){
+    public void sendCust(DBCustomer cust){
         upCustIDTxt.setText(String.valueOf(cust.getCustID()));
         upCustNameTxt.setText(String.valueOf(cust.getCustName()));
         upCustAddressTxt.setText(String.valueOf(cust.getCustAdd()));
@@ -66,7 +66,7 @@ public class UpdateCustomer implements Initializable {
 
 
             int selCountry = 0;
-            for (DBProviderDID country : DataProvider.getAllCountry()) {
+            for (DBCountryDID country : DataProvider.getAllCountry()) {
                 list.add(country.getCountry());
                 if (country.getCountryID() == custCount) {
                     selCountry = country.getCountryID();
@@ -98,7 +98,7 @@ public class UpdateCustomer implements Initializable {
         ObservableList list = FXCollections.observableArrayList();
 
 
-        for (DBProviderDID country : DataProvider.getAllCountry()) {
+        for (DBCountryDID country : DataProvider.getAllCountry()) {
             if (country.getCountry() == upCustCountyCombo.getValue()) {
                 countryID = country.getCountryID();
             }
@@ -155,7 +155,7 @@ public class UpdateCustomer implements Initializable {
             psti.execute();
 
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+            scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
         } catch (SQLException e) {
@@ -166,7 +166,7 @@ public class UpdateCustomer implements Initializable {
 
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }

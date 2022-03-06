@@ -1,8 +1,5 @@
 package main;
 
-import java.sql.*;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import DBA.JDBC;
@@ -11,12 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.DBProvider;
-import model.DBProviderDID;
-import model.DataProvider;
-import model.TimeFunctions;
 
-import static DBA.JDBC.connection;
 import static java.util.ResourceBundle.getBundle;
 
 public class Main extends Application {
@@ -25,9 +17,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/StartMenu.fxml")));
         primaryStage.setTitle("First View");
-        primaryStage.setScene(new Scene(root, 1200, 400));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
 
@@ -73,7 +65,7 @@ public class Main extends Application {
         System.out.println(zoneStr);
         System.out.println(zoneStrUTC);
 
-        System.out.println(zoneStrEST);*/
+        System.out.println(zoneStrEST);
 
 
         String test = "2020-05-28 12:00:00";
@@ -82,6 +74,7 @@ public class Main extends Application {
         LocalDate dateStr = TimeFunctions.zdtToDate(testLDT);
         LocalTime timeStr = TimeFunctions.zdtToTime(testLDT);
         System.out.println(dateStr + " " +timeStr);
+        */
 
 
 

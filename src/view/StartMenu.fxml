@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartMenu">
+   <children>
+      <VBox alignment="CENTER" layoutX="217.0" layoutY="65.0" prefHeight="270.0" prefWidth="166.0" spacing="15.0">
+         <children>
+            <Label text="Pick an Option:">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Button minWidth="121.0" mnemonicParsing="false" onAction="#onActionCustMenuBttn" text="Customer Menu" />
+            <Button layoutX="34.0" layoutY="106.0" mnemonicParsing="false" onAction="#onActionAppMenuBttn" text="Appointment Menu" />
+            <Button layoutX="34.0" layoutY="119.0" minWidth="121.0" mnemonicParsing="false" onAction="#onActionReportsBttn" text="Reports" />
+            <Button layoutX="34.0" layoutY="131.0" minWidth="121.0" mnemonicParsing="false" onAction="#onActionLogOutBttn" text="Log Out" />
+         </children>
+      </VBox>
+      <Label layoutX="30.0" layoutY="55.0" text="Start Menu">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

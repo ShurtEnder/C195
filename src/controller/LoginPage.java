@@ -177,7 +177,7 @@ public class LoginPage implements Initializable {
             if(usernameDB.equals(userNameTxt.getText()) && passwordDB.equals(passwordTxt.getText())){
                 userFound = true;
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+                scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
             }

@@ -3,11 +3,11 @@ package model;
 import java.time.LocalDateTime;
 
 public class DBAppointment {
-    private int AppID, CustID;
-    private String Title, Loc, Type, combSE;
+    private int AppID, CustID, UserID, Contact;
+    private String Title, Loc, Type, Desc;
     private LocalDateTime Start, End;
 
-    public DBAppointment(int AppID, int CustID,String Title, String Loc, String Type, LocalDateTime Start, LocalDateTime End, String combSE){
+    public DBAppointment(int AppID, int CustID, int UserID ,int Contact,String Title, String Desc, String Loc, String Type, LocalDateTime Start, LocalDateTime End ){
         this.AppID = AppID;
         this.CustID = CustID;
         this.Title = Title;
@@ -15,7 +15,9 @@ public class DBAppointment {
         this.Type = Type;
         this.Start = Start;
         this.End = End;
-        this.combSE = combSE;
+        this.Desc = Desc;
+        this.UserID = UserID;
+        this.Contact = Contact;
     }
 
     public int getAppID() {
@@ -58,12 +60,12 @@ public class DBAppointment {
         Type = type;
     }
 
-    public String getCombSE() {
-        return combSE;
+    public String getDesc() {
+        return Desc;
     }
 
-    public void setCombSE(String combSE) {
-        this.combSE = combSE;
+    public void setDesc(String desc) {
+        this.Desc = desc;
     }
 
     public LocalDateTime getStart() {
@@ -80,5 +82,21 @@ public class DBAppointment {
 
     public void setEnd(LocalDateTime end) {
         End = end;
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int userID) {
+        UserID = userID;
+    }
+
+    public int getContact() {
+        return Contact;
+    }
+
+    public void setContact(int contact) {
+        Contact = contact;
     }
 }

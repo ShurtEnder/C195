@@ -5,26 +5,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentWeekMonth">
+<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentMenu">
    <children>
       <VBox layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="900.0">
          <children>
             <HBox alignment="CENTER" prefHeight="41.0" prefWidth="500.0" spacing="75.0">
                <children>
                   <Label fx:id="selectionMWLbl" text="Select Month/Week: " />
-                  <RadioButton mnemonicParsing="false" onAction="#onActionMonthRBttn" text="Month">
+                  <RadioButton layoutX="594.0" layoutY="20.0" mnemonicParsing="false" onAction="#onActionNoFilterRBttn" selected="true" text="No Filter">
                      <toggleGroup>
                         <ToggleGroup fx:id="MonthWeek" />
-                     </toggleGroup></RadioButton>
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" onAction="#onActionMonthRBttn" text="Month" toggleGroup="$MonthWeek" />
                   <RadioButton mnemonicParsing="false" onAction="#onActionWeekRBttn" text="Week" toggleGroup="$MonthWeek" />
                </children>
             </HBox>
-            <Label text="Currently Showing: All Appointments">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <TableView prefHeight="225.0" prefWidth="501.0">
+            <TableView fx:id="appVAppTableView" prefHeight="225.0" prefWidth="501.0">
               <columns>
                 <TableColumn fx:id="appVAppIDCol" prefWidth="90.0" text="Appt. ID" />
                 <TableColumn fx:id="appVTitleCol" prefWidth="90.0" text="Title" />
@@ -38,9 +35,11 @@
                   <TableColumn fx:id="appVUserIDCol" prefWidth="90.0" text="User ID" />
               </columns>
             </TableView>
-            <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="500.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="500.0" spacing="15.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onActionBackBttn" text="Back" />
+                  <Button mnemonicParsing="false" onAction="#onActionUpdateAppBttn" text="Update" />
+                  <Button layoutX="864.0" layoutY="15.0" mnemonicParsing="false" onAction="#onActionRemoveAppBttn" text="Remove" />
+                  <Button layoutX="864.0" layoutY="15.0" mnemonicParsing="false" onAction="#onActionBackBttn" text="Back" />
                </children>
                <opaqueInsets>
                   <Insets />

@@ -1,10 +1,10 @@
 package model;
 
-public class DBProviderDID {
+public class DBCountryDID {
     private int countryID;
     private String country;
 
-    public DBProviderDID(int countryID, String country){
+    public DBCountryDID(int countryID, String country){
         this.countryID = countryID;
         this.country = country;
     }

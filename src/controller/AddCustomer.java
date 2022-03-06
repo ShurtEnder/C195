@@ -1,6 +1,5 @@
 package controller;
 
-import DBA.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.DBProvider;
-import model.DBProviderDID;
+import model.DBCountryDID;
 import model.DataProvider;
 
 import java.io.IOException;
@@ -23,8 +21,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
@@ -53,7 +49,7 @@ public class AddCustomer implements Initializable {
         ObservableList list = FXCollections.observableArrayList();
 
 
-        for(DBProviderDID country : DataProvider.getAllCountry()){
+        for(DBCountryDID country : DataProvider.getAllCountry()){
             if(country.getCountry() ==addCustCountyCombo.getValue()){
                 countryID = country.getCountryID();
             }
@@ -115,14 +111,14 @@ public class AddCustomer implements Initializable {
         }
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
         public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -131,7 +127,7 @@ public class AddCustomer implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ObservableList list = FXCollections.observableArrayList();
-        for(DBProviderDID country : DataProvider.getAllCountry()){
+        for(DBCountryDID country : DataProvider.getAllCountry()){
             list.add(country.getCountry());
         }
         addCustCountyCombo.setItems(list);

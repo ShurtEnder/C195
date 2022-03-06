@@ -4,23 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DataProvider {
-    private static ObservableList<DBProvider> allCustomers = FXCollections.observableArrayList();
-    private static ObservableList<DBProviderDID> allCountry = FXCollections.observableArrayList();
+    private static ObservableList<DBCustomer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<DBCountryDID> allCountry = FXCollections.observableArrayList();
     private static ObservableList<DBAppointment> allAppointments = FXCollections.observableArrayList();
 
-    public static void addCustomer(DBProvider cust){
+    public static void addCustomer(DBCustomer cust){
         allCustomers.add(cust);
     }
 
-    public static ObservableList<DBProvider> getAllCustomers(){
+    public static ObservableList<DBCustomer> getAllCustomers(){
         return allCustomers;
     }
 
-    public static void addCountry(DBProviderDID country){
+    public static void addCountry(DBCountryDID country){
         allCountry.add(country);
     }
 
-    public static ObservableList<DBProviderDID> getAllCountry() {
+    public static ObservableList<DBCountryDID> getAllCountry() {
         return allCountry;
     }
 
