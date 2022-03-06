@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -114,10 +111,24 @@ public class MainMenu implements Initializable {
     }
 
     public void onActionUpCustBttn(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/UpdateCustomer.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/UpdateCustomer.fxml"));
+            loader.load();
+            UpdateCustomer UPController = loader.getController();
+            UPController.sendCust((DBProvider) custTableView.getSelectionModel().getSelectedItem());
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException Te){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setContentText("Select a Customer!");
+            alert.showAndWait();
+        }
+
     }
 
     public void onActionDelCustBttn(ActionEvent actionEvent) {

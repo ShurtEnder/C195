@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.DBProvider;
 import model.DBProviderDID;
 import model.DataProvider;
 
@@ -45,6 +46,7 @@ public class AddCustomer implements Initializable {
 
     Stage stage;
     Parent scene;
+
 
     public void onActionAddCustCountyCombo(ActionEvent actionEvent) {
         int countryID = 0;
@@ -132,7 +134,6 @@ public class AddCustomer implements Initializable {
         for(DBProviderDID country : DataProvider.getAllCountry()){
             list.add(country.getCountry());
         }
-
         addCustCountyCombo.setItems(list);
     }
 }
