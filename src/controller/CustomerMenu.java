@@ -26,14 +26,6 @@ public class CustomerMenu implements Initializable {
     public TableColumn custCodeCol;
     public TableColumn custPhoneCol;
     public TableColumn custFDLCol;
-    public TableView appTableView;
-    public TableColumn appIDCol;
-    public TableColumn appCustIDCol;
-    public TableColumn appTitleCol;
-    public TableColumn appLocCol;
-    public TableColumn appTypeCol;
-    public TableColumn appSECol;
-    public Label custInfoLbl;
     private String sqlQuery = "SELECT Appointment_ID, Customer_ID, Title, Location, Type, Start, End FROM appointments WHERE Customer_ID = ?";
     private String sqlQuery2 = "DELETE FROM client_schedule.customers WHERE Customer_ID = ?";
 
@@ -218,10 +210,24 @@ public class CustomerMenu implements Initializable {
             }
 
          */
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/AddAppointment.fxml"));
+            loader.load();
+            AddAppointment AAController = loader.getController();
+            AAController.sendAddApp((DBCustomer) custTableView.getSelectionModel().getSelectedItem());
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException Te){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setContentText("No customer selected!");
+            alert.showAndWait();
+        }
+
 
     }
 

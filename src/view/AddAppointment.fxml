@@ -37,7 +37,7 @@
                   <TextField fx:id="addAppTitleTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextArea fx:id="addAppDescTxt" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="addAppLocTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="addAppTypeTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="addAppTypeCombo" onAction="#onActionAddAppTypeCombo" prefWidth="150.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
             <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="500.0" spacing="23.0">

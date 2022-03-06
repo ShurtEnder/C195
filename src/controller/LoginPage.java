@@ -29,6 +29,7 @@ public class LoginPage implements Initializable {
     public Label passwordLbl;
     public Button loginBttnTxt;
     public Label zoneIDLbl;
+    public static int userID;
 
     Stage stage;
     Parent scene;
@@ -61,6 +62,7 @@ public class LoginPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userID = 0;
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         ZoneId zoneID = ZoneId.systemDefault();
         String strZoneID = zoneID.getId();
@@ -163,6 +165,7 @@ public class LoginPage implements Initializable {
         Statement stmt = connection.createStatement();
         rs = stmt.executeQuery("SELECT * FROM client_schedule.users");
         while(rs.next()) {
+            int user_ID = rs.getInt(1);
             String usernameDB = rs.getString(2);
             String passwordDB = rs.getString(3);
             /*
@@ -176,6 +179,7 @@ public class LoginPage implements Initializable {
 
             if(usernameDB.equals(userNameTxt.getText()) && passwordDB.equals(passwordTxt.getText())){
                 userFound = true;
+                userID = user_ID;
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
                 stage.setScene(new Scene(scene));

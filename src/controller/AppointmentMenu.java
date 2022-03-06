@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.DBAppointment;
+import model.DBCustomer;
 import model.DataProvider;
 
 import java.io.IOException;
@@ -93,10 +94,23 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void onActionUpdateAppBttn(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/UpdateAppointment.fxml"));
+            loader.load();
+            UpdateAppointment UPAppointment = loader.getController();
+            UPAppointment.sendUpApp((DBAppointment) appVAppTableView.getSelectionModel().getSelectedItem());
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException Te){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setContentText("No appointment selected!");
+            alert.showAndWait();
+        }
     }
 
     public void onActionRemoveAppBttn(ActionEvent actionEvent) {
