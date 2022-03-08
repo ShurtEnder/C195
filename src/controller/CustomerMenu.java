@@ -139,11 +139,12 @@ public class CustomerMenu implements Initializable {
                 }
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setContentText("Are you sure you want to delete part?");
+                alert.setContentText("Are you sure you want to delete customer?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     if(!appThere){
                         psti2.execute();
+
                         DataProvider.getAllCustomers().clear();
                         Statement stmt = connection.createStatement();
                         rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
