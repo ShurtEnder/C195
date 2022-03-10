@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.DBAppointment;
 import model.DBCustomer;
+import model.DataProvider;
 import model.TimeFunctions;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.*;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
@@ -40,6 +42,9 @@ public class AddAppointment implements Initializable {
     private ObservableList timeList = FXCollections.observableArrayList();
     private LocalDate localDate;
     private String sqlQuery = "INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)";
+    private String sqlQuery2 = "SELECT * FROM client_schedule.appointments WHERE ? BETWEEN ? AND ?";
+    private boolean overLap = false;
+    private ArrayList overlapList = new ArrayList<>();
 
     Stage stage;
     Parent scene;
@@ -56,20 +61,17 @@ public class AddAppointment implements Initializable {
         LocalTime firstTime = LocalTime.parse("08:00");
         LocalDateTime firstDT = LocalDateTime.of(localDate, firstTime);
         LocalTime firstTime1 = TimeFunctions.getESTtoLoc(firstDT).toLocalTime();
-        System.out.println(firstTime1);
 
 
         LocalTime lastTime = firstTime1.plusHours(14);
         timeList.add(firstTime1);
         while(!(firstTime1 == lastTime)){
-            System.out.println(firstTime1);
             firstTime1 = firstTime1.plusMinutes(30);
             timeList.add(firstTime1);
         }
 
         addAppStartCombo.setItems(timeList);
         addAppEndCombo.setItems(timeList);
-        System.out.println(timeList);
 
 
         int custID = customer.getCustID();
@@ -113,6 +115,9 @@ public class AddAppointment implements Initializable {
 
     public void onActionAddAppSaveBttn(ActionEvent actionEvent) throws IOException {
         try{
+
+            overLap = false;
+            overlapList.clear();
             PreparedStatement psti = connection.prepareStatement(sqlQuery);
             String strQuery = "SELECT Contact_ID FROM client_schedule.contacts WHERE Contact_Name = ?";
             PreparedStatement psti2 = connection.prepareStatement(strQuery);
@@ -129,11 +134,15 @@ public class AddAppointment implements Initializable {
             LocalTime startT = LocalTime.parse(String.valueOf(addAppStartCombo.getSelectionModel().getSelectedItem()));
             LocalDate startD = LocalDate.parse(String.valueOf(addAppStartDateCal.getValue()));
             LocalDateTime startComb = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(startD, startT)).toLocalDateTime();
+            startT = startComb.toLocalTime();
+            startD = startComb.toLocalDate();
             Timestamp finalStartTime = Timestamp.valueOf(startComb);
 
             LocalTime endT = LocalTime.parse(String.valueOf(addAppEndCombo.getSelectionModel().getSelectedItem()));
             LocalDate endD = LocalDate.parse(String.valueOf(addAppEndDateCal.getValue()));
             LocalDateTime endComb = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(endD, endT)).toLocalDateTime();
+            endT = endComb.toLocalTime();
+            endD = endComb.toLocalDate();
             Timestamp finalEndTime = Timestamp.valueOf(endComb);
 
 
@@ -147,21 +156,79 @@ public class AddAppointment implements Initializable {
             /*
             INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)
              */
+            if(startT.isAfter(endT)){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("End time starts before start time!");
+                alert.showAndWait();
+            } else if(startD.isAfter(endD)){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("End date starts before start date!");
+                alert.showAndWait();
+            } else if(startD.isBefore(LocalDate.now()) || endD.isBefore(LocalDate.now())){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("Start/End Date before today!");
+                alert.showAndWait();
+            } else if(startT.isBefore(LocalTime.now()) || endT.isBefore(LocalTime.now())){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("Start/End Time before this time!");
+                alert.showAndWait();
+            }
+            else{
+                for (DBAppointment app: DataProvider.getAllAppointments()){
+                    //if(app.getAppID() == )
+                    LocalDate checkDateStart = app.getStart().toLocalDate();
+                    LocalTime checkTimeStart = app.getStart().toLocalTime();
 
-            psti.setString(1, title);
-            psti.setString(2, desc);
-            psti.setString(3, loc);
-            psti.setString(4, type);
-            psti.setString(5, String.valueOf(finalStartTime));
-            psti.setString(6, String.valueOf(finalEndTime));
-            psti.setString(7, custID);
-            psti.setString(8, userID);
-            psti.setString(9, String.valueOf(contID));
-            psti.execute();
+                    LocalDate checkDateEnd = app.getEnd().toLocalDate();
+                    LocalTime checkTimeEnd = app.getEnd().toLocalTime();
+                    if(startD.equals(checkDateStart)){
+                        if((startT.isAfter(checkTimeStart) || startT.equals(checkTimeStart)) && startT.isBefore(checkTimeEnd)){
+                            System.out.println("Overlap!");
+                            overLap = true;
+                        }
+                        else if(endT.isAfter(checkTimeStart) && (endT.isBefore(checkTimeEnd) || endT.equals(checkTimeEnd))){
+                            System.out.println("Overlap!");
+                            overLap = true;
+                        }
+                        else if((startT.isBefore(checkTimeStart) || startT.equals(checkTimeStart)) && (endT.isAfter(checkTimeEnd) || endT.equals(checkTimeEnd))){
+                            System.out.println("Overlap!");
+                            overLap = true;
+                        }
+                        else if (overLap){
+                            System.out.println(app.getAppID());
+                            overlapList.add(app.getAppID());
+                        }
+                    }
+                }
+                if (overLap){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning!!");
+                    alert.setContentText("There is appoint overlaps with appointment(s) " + overlapList);
+                    alert.showAndWait();
+                }
+                else{
+                    psti.setString(1, title);
+                    psti.setString(2, desc);
+                    psti.setString(3, loc);
+                    psti.setString(4, type);
+                    psti.setString(5, String.valueOf(finalStartTime));
+                    psti.setString(6, String.valueOf(finalEndTime));
+                    psti.setString(7, custID);
+                    psti.setString(8, userID);
+                    psti.setString(9, String.valueOf(contID));
+                    psti.execute();
 
+                    stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                }
 
-
-
+            }
 
 
         } catch (SQLException e) {
@@ -173,10 +240,7 @@ public class AddAppointment implements Initializable {
             alert.showAndWait();
         }
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+
     }
 
     public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {

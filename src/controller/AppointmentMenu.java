@@ -1,5 +1,7 @@
 package controller;
 
+import Interface.SimpleList;
+import Interface.errorMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -170,6 +172,10 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void onActionNoFilterRBttn(ActionEvent actionEvent) {
+        errorMessage test = s -> "No" + s + "selected";
+
+        System.out.println(test.errorMessage("IDK"));
+
         ResultSet rs = null;
         if(!(DataProvider.getAllAppointments().isEmpty())){
             DataProvider.getAllAppointments().clear();

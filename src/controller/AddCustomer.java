@@ -1,5 +1,6 @@
 package controller;
 
+import Interface.SimpleList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,6 +45,7 @@ public class AddCustomer implements Initializable {
     Parent scene;
 
 
+
     public void onActionAddCustCountyCombo(ActionEvent actionEvent) {
         int countryID = 0;
         ObservableList list = FXCollections.observableArrayList();
@@ -73,6 +75,7 @@ public class AddCustomer implements Initializable {
     }
 
     public void onActionAddCustSaveBttn(ActionEvent actionEvent) throws IOException {
+
         try {
             PreparedStatement psti = connection.prepareStatement(sqlQuery);
             String strQuery = "SELECT Division_ID FROM client_schedule.first_level_divisions where Division = ?";
