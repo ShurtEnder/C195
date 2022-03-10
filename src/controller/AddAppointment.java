@@ -41,9 +41,12 @@ public class AddAppointment implements Initializable {
     private ObservableList contList = FXCollections.observableArrayList();
     private ObservableList timeList = FXCollections.observableArrayList();
     private LocalDate localDate;
+    private LocalDateTime businessDTStart;
+    private LocalDateTime businessDTEnd;
     private String sqlQuery = "INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)";
     private String sqlQuery2 = "SELECT * FROM client_schedule.appointments WHERE ? BETWEEN ? AND ?";
     private boolean overLap = false;
+    private boolean busHours = true;
     private ArrayList overlapList = new ArrayList<>();
 
     Stage stage;
@@ -132,6 +135,12 @@ public class AddAppointment implements Initializable {
             String cont = String.valueOf(addAppContNameCombo.getSelectionModel().getSelectedItem());
 
             LocalTime startT = LocalTime.parse(String.valueOf(addAppStartCombo.getSelectionModel().getSelectedItem()));
+            /*
+            if (startT.isAfter(LocalTime.parse("24:00")) || startT.equals(LocalTime.parse("00:00"))){
+                    nextDayStart = true;
+            }
+
+             */
             LocalDate startD = LocalDate.parse(String.valueOf(addAppStartDateCal.getValue()));
             LocalDateTime startComb = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(startD, startT)).toLocalDateTime();
             startT = startComb.toLocalTime();
@@ -139,11 +148,38 @@ public class AddAppointment implements Initializable {
             Timestamp finalStartTime = Timestamp.valueOf(startComb);
 
             LocalTime endT = LocalTime.parse(String.valueOf(addAppEndCombo.getSelectionModel().getSelectedItem()));
+            /*
+            if (endT.isAfter(LocalTime.parse("24:00")) || endT.equals(LocalTime.parse("00:00"))){
+                nextDayEnd = true;
+            }
+
+             */
             LocalDate endD = LocalDate.parse(String.valueOf(addAppEndDateCal.getValue()));
             LocalDateTime endComb = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(endD, endT)).toLocalDateTime();
             endT = endComb.toLocalTime();
             endD = endComb.toLocalDate();
             Timestamp finalEndTime = Timestamp.valueOf(endComb);
+
+            /*
+            LocalTime.parse((CharSequence) timeList.get(0));
+            LocalTime.parse((CharSequence) timeList.get(timeList.size() - 1));
+
+             */
+
+            int busStartind = timeList.indexOf(addAppStartCombo.getSelectionModel().getSelectedItem());
+            int busEndind = timeList.indexOf(addAppEndCombo.getSelectionModel().getSelectedItem());
+
+            if(busEndind < busStartind){
+                busHours = false;
+            } else{
+                busHours = true;
+            }
+
+            /*
+            businessDTStart = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(startD, LocalTime.parse((CharSequence) timeList.get(0)))).toLocalDateTime();
+            businessDTEnd = businessDTStart.minusHours(10);
+
+             */
 
 
             psti2.setString(1, String.valueOf(cont));
@@ -156,7 +192,19 @@ public class AddAppointment implements Initializable {
             /*
             INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)
              */
-            if(startT.isAfter(endT)){
+            if(!(busHours)){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("Selected date/times are not within business hours!");
+                alert.showAndWait();
+            }
+            else if(startComb.isAfter(endComb)){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("End Date/Time is before start date/time!");
+                alert.showAndWait();
+            }
+            else if(startT.isAfter(endT) && !(startComb.isBefore(endComb))){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning!");
                 alert.setContentText("End time starts before start time!");
@@ -171,7 +219,7 @@ public class AddAppointment implements Initializable {
                 alert.setTitle("Warning!");
                 alert.setContentText("Start/End Date before today!");
                 alert.showAndWait();
-            } else if(startT.isBefore(LocalTime.now()) || endT.isBefore(LocalTime.now())){
+            } else if((startT.isBefore(LocalTime.now()) || endT.isBefore(LocalTime.now())) && !(startD.isAfter(LocalDate.now()) || endD.isAfter(LocalDate.now()))){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning!");
                 alert.setContentText("Start/End Time before this time!");
@@ -210,6 +258,21 @@ public class AddAppointment implements Initializable {
                     alert.setContentText("There is appoint overlaps with appointment(s) " + overlapList);
                     alert.showAndWait();
                 }
+                /*
+                else if(nextDayStart){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning!!");
+                    alert.setContentText("Selected Start time is at or past midnight! Please select next day!");
+                    alert.showAndWait();
+                }
+                else if(nextDayEnd) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning!!");
+                    alert.setContentText("Selected End time is at or past midnight! Please select next day!");
+                    alert.showAndWait();
+                }
+
+                 */
                 else{
                     psti.setString(1, title);
                     psti.setString(2, desc);
@@ -232,7 +295,7 @@ public class AddAppointment implements Initializable {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (NumberFormatException Ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
