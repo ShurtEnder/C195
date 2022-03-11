@@ -198,6 +198,12 @@ public class AddAppointment implements Initializable {
                 alert.setContentText("Selected date/times are not within business hours!");
                 alert.showAndWait();
             }
+            else if(startT.equals(endT)){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("Start time and end time are the same!");
+                alert.showAndWait();
+            }
             else if(startComb.isAfter(endComb)){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning!");
@@ -222,7 +228,7 @@ public class AddAppointment implements Initializable {
             } else if((startT.isBefore(LocalTime.now()) || endT.isBefore(LocalTime.now())) && !(startD.isAfter(LocalDate.now()) || endD.isAfter(LocalDate.now()))){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning!");
-                alert.setContentText("Start/End Time before this time!");
+                alert.setContentText("Start/End Time before current time!");
                 alert.showAndWait();
             }
             else{
