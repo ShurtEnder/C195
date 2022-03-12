@@ -16,9 +16,9 @@ import model.TimeFunctions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,6 +33,7 @@ public class LoginPage implements Initializable {
     public Button loginBttnTxt,exitBttnTxt;
     public static int userID;
     private String sqlQuery = "SELECT Appointment_ID, Start FROM client_schedule.appointments WHERE Start BETWEEN ? AND ? AND USER_ID = ?";
+    private ArrayList wordList = new ArrayList<>();
 
     Stage stage;
     Parent scene;
@@ -52,7 +53,6 @@ public class LoginPage implements Initializable {
                 sent = sent + " " + strL[i];
             }
         }
-        System.out.println(sent);
         sent.trim();
         return sent;
     }
@@ -63,12 +63,40 @@ public class LoginPage implements Initializable {
         return true;
     }
 
+    public String sentenceTrans(String sentence){
+        ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
+        String lowerCase = "";
+        String upperCase = "";
+        upperCase = sentence;
+        lowerCase = sentence.toLowerCase();
+        String[] sentenceList = stringList(lowerCase);
+        String[] sentenceCapList = stringList(upperCase);
+        for(int i=0; i < sentenceList.length; i++ ) {
+            String s = sentenceList[i];
+            String c = sentenceCapList[i];
+            if(!(sentenceList[i].equals(":")) && !(sentenceList[i].equals("?")) && !(sentenceList[i].equals("!")) && !(sentenceList[i].equals("-")) && !(sentenceList[i].equals("'"))){
+                if (isUpperCase(c)) {
+                    String trans = rb.getString(s);
+                    char capLet = trans.toUpperCase().charAt(0);
+                    char first = trans.charAt(0);
+                    sentenceList[i] = trans.replace(first, capLet);
+                } else {
+                    sentenceList[i] = rb.getString(s);
+                }
+            } else {
+                sentenceList[i] = s;
+            }
+        }
+        String newStr = stringComb(sentenceList);
+        return newStr;
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataProvider.setNewCounter(0);
         DataProvider.setUpCounter(0);
         userID = 0;
-        ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         ZoneId zoneID = ZoneId.systemDefault();
         String strZoneID = zoneID.getId();
         zoneIDLbl.setText(strZoneID);
@@ -76,65 +104,22 @@ public class LoginPage implements Initializable {
         String userName = userNameLbl.getText();
         String password = passwordLbl.getText();
         String button = loginBttnTxt.getText();
+        String exit = exitBttnTxt.getText();
+
 
         if(Locale.getDefault().getLanguage().equals("en")) {
-            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
-            String test = "";
-            String cap = "";
-            cap = loginPage;
-            test = loginPage.toLowerCase();
-            String[] loginPageList = stringList(test);
-            String[] loginPageCapList = stringList(cap);
-
-            for(int i=0; i < loginPageList.length; i++ ){
-                String s = loginPageList[i];
-                String c = loginPageCapList[i];
-                if(isUpperCase(c)){
-                    String trans = rb.getString(s);
-                    char capLet = trans.toUpperCase().charAt(0);
-                    char first = trans.charAt(0);
-                    loginPageList[i] = trans.replace(first, capLet);;
-                }
-                else{
-                    loginPageList[i] = rb.getString(s);
-                }
-            }
-
-            String newStr = stringComb(loginPageList);
-            loginPageLbl.setText(newStr);
-            System.out.println(newStr);
+            loginPageLbl.setText(sentenceTrans(loginPage));
+            userNameLbl.setText(sentenceTrans(userName));
+            passwordLbl.setText(sentenceTrans(password));
+            loginBttnTxt.setText(sentenceTrans(button));
+            exitBttnTxt.setText(sentenceTrans(exit));
 
         }
         else if(Locale.getDefault().getLanguage().equals("es")){
-            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
-            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
-            String test = "";
-            String cap = "";
-            cap = loginPage;
-            test = loginPage.toLowerCase();
-            System.out.println(test);
-            String[] loginPageList = stringList(test);
-            String[] loginPageCapList = stringList(cap);
 
-            for(int i=0; i < loginPageList.length; i++ ){
-                String s = loginPageList[i];
-                String c = loginPageCapList[i];
-                if(isUpperCase(c)){
-                    String trans = rb.getString(s);
-                    char capLet = trans.toUpperCase().charAt(0);
-                    char first = trans.charAt(0);
-                    loginPageList[i] = trans.replace(first, capLet);;
-                }
-                else{
-                    loginPageList[i] = rb.getString(s);
-                }
-            }
-            String newStr = stringComb(loginPageList);
-            loginPageLbl.setText(newStr);
-            System.out.println(newStr);
         }
         else if (Locale.getDefault().getLanguage().equals("fr")){
-            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
+
         }
 
     }
@@ -146,7 +131,8 @@ public class LoginPage implements Initializable {
             return s;
         };
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
-        String message = "No user or password found!";
+        String noPass = sentenceTrans("No user or password found !");
+
 
         boolean userFound = false;
         PreparedStatement psti = connection.prepareStatement(sqlQuery);
@@ -164,7 +150,7 @@ public class LoginPage implements Initializable {
                 String printTime = null;
                 userFound = true;
                 userID = user_ID;
-                IOClass.insertLog(stringComb.cString("Login attempt success!"));
+                IOClass.insertLog(stringComb.cString("Login attempt success !"));
 
                 Timestamp.valueOf(TimeFunctions.getLoctoUTC(LocalDateTime.now()).toLocalDateTime().minusMinutes(1));
 
@@ -174,23 +160,24 @@ public class LoginPage implements Initializable {
 
                 rs = psti.executeQuery();
                 while(rs.next()) {
-                    System.out.println("Query exe");
                     printAppID = rs.getString(1);
                     printTime = rs.getString(2);
                 }
 
                 if(!(printAppID == null)) {
                     printTime = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(Timestamp.valueOf(printTime).toLocalDateTime()).toLocalDateTime());
-                    String okStr = rb.getString("OK");
+                    String appNear = sentenceTrans("There is an appointment within 15 minutes ! ") + "\n" + sentenceTrans("Appointment ID : ")+ " " + printAppID + "\n" +sentenceTrans("Date and Time : ") + " " + printTime;
+                    String okStr = sentenceTrans("OK");
                     ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
-                    Alert alert = new Alert(Alert.AlertType.NONE, "There is an appointment within 15 minutes! \nAppointment ID: " + printAppID + "\nDate/Time: " + printTime, ok);
+                    Alert alert = new Alert(Alert.AlertType.NONE,appNear , ok);
                     alert.setTitle("");
                     alert.showAndWait();
                 }
                 else {
-                    String okStr = rb.getString("OK");
+                    String okStr = sentenceTrans("OK");
+                    String noNear = sentenceTrans("There are no upcoming appointments !");
                     ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
-                    Alert alert = new Alert(Alert.AlertType.NONE, "There are no upcoming appointments!", ok);
+                    Alert alert = new Alert(Alert.AlertType.NONE, noNear, ok);
                     alert.setTitle("");
                     alert.showAndWait();
                 }
@@ -205,22 +192,23 @@ public class LoginPage implements Initializable {
         if(!userFound){
             if(Locale.getDefault().getLanguage().equals("en")) {
                 IOClass.insertLog(stringComb.cString("Login attempt failed"));
-                String okStr = rb.getString("OK");
+                String okStr = sentenceTrans("OK");;
                 ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
-                Alert alert = new Alert(Alert.AlertType.NONE, message, ok);
+                Alert alert = new Alert(Alert.AlertType.NONE, noPass, ok);
                 alert.setTitle("");
                 alert.showAndWait();
             }
             else if(Locale.getDefault().getLanguage().equals("es")) {
-                String okStr = rb.getString("OK");
+                String okStr = sentenceTrans("OK");
                 ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
-                Alert alert = new Alert(Alert.AlertType.NONE, message, ok);
+                Alert alert = new Alert(Alert.AlertType.NONE, noPass, ok);
                 alert.setTitle("");
                 alert.showAndWait();
             }
             else if(Locale.getDefault().getLanguage().equals("fr")) {
-                ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                Alert alert = new Alert(Alert.AlertType.NONE, message, ok);
+                String okStr = sentenceTrans("OK");
+                ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
+                Alert alert = new Alert(Alert.AlertType.NONE, noPass, ok);
                 alert.setTitle("");
                 alert.showAndWait();
             }
@@ -229,11 +217,12 @@ public class LoginPage implements Initializable {
     }
 
     public void onActionExit(ActionEvent actionEvent) {
-        ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
-        ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-        String cancelStr = rb.getString("Cancel");
+        String exitMsg = sentenceTrans("Are you sure you want to exit ?");
+        String okStr = sentenceTrans("OK");
+        ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
+        String cancelStr = sentenceTrans("Back");
         ButtonType cancel = new ButtonType(cancelStr, ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to exit?", ok, cancel);
+        Alert alert = new Alert(Alert.AlertType.NONE, exitMsg, ok, cancel);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ok) {
             System.exit(0);
