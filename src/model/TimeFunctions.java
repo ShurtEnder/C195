@@ -9,8 +9,6 @@ public class TimeFunctions {
     static ZoneId zoneIDEST = ZoneId.of("America/New_York");
     static ZoneId zoneIDUTC = ZoneId.of("UTC");
 
-    /* LocalDateTime timeLoc = LocalDateTime.now(); */
-
     public static ZonedDateTime getLoctoUTC(LocalDateTime timeLoc){
         ZonedDateTime zoneStr = timeLoc.atZone(zoneIDLoc);
         ZonedDateTime zoneStrUTC = zoneStr.withZoneSameInstant(ZoneOffset.UTC);
@@ -47,16 +45,6 @@ public class TimeFunctions {
         return zoneStrLoc;
     }
 
-    public static LocalTime zdtToTime(LocalDateTime time){
-        LocalTime locTime = time.toLocalTime();
-        return locTime;
-    }
-
-    public static LocalDate zdtToDate(LocalDateTime time){
-        LocalDate locDate = time.toLocalDate();
-        return locDate;
-    }
-
     public static LocalDateTime combDT(LocalDate localDate, LocalTime localTime){
         return LocalDateTime.of(localDate,localTime);
     }
@@ -65,11 +53,5 @@ public class TimeFunctions {
         return time.format(dtf);
     }
 
-    public static LocalDateTime ldtParse(String form){
-        return LocalDateTime.parse(form, dtf);
-    }
 
-    public static LocalDateTime zonetoLDT(ZonedDateTime zone){
-        return zone.toLocalDateTime();
-    }
 }

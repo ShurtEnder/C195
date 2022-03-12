@@ -27,18 +27,10 @@ import java.util.ArrayList;
 import static DBA.JDBC.connection;
 
 public class UpdateAppointment {
-    public TextField upAppAppIDTxt;
-    public TextField upAppCustIDTxt;
-    public TextField upAppUserIDTxt;
-    public TextField upAppTitleTxt;
+    public TextField upAppAppIDTxt,upAppCustIDTxt,upAppUserIDTxt,upAppTitleTxt,upAppLocTxt;
     public TextArea upAppDescTxt;
-    public TextField upAppLocTxt;
-    public ComboBox upAppContNameCombo;
-    public ComboBox upAppStartCombo;
-    public DatePicker upAppStartDateCal;
-    public ComboBox upAppEndCombo;
-    public DatePicker upAppEndDateCal;
-    public ComboBox upAppTypeCombo;
+    public ComboBox upAppContNameCombo,upAppStartCombo,upAppEndCombo,upAppTypeCombo;
+    public DatePicker upAppStartDateCal,upAppEndDateCal;
     private LocalDate localDate;
     private ObservableList typeList = FXCollections.observableArrayList("Planning Session","De-Briefing", "Meeting", "Break");
     private ObservableList contList = FXCollections.observableArrayList();
@@ -47,7 +39,6 @@ public class UpdateAppointment {
     private boolean overLap = false;
     private boolean busHours = true;
     private ArrayList overlapList = new ArrayList<>();
-
 
     Stage stage;
     Parent scene;
@@ -61,18 +52,13 @@ public class UpdateAppointment {
         upAppDescTxt.setText(String.valueOf(appointment.getDesc()));
         upAppLocTxt.setText(String.valueOf(appointment.getLoc()));
         upAppTypeCombo.setValue(String.valueOf(appointment.getType()));
-        /*
-        upAppContNameCombo.setValue(String.valueOf(appointment.getContact()));
 
-         */
         ZonedDateTime startLDTLoc = TimeFunctions.getUTCtoLoc(appointment.getStart());
         LocalTime startTimeloc = startLDTLoc.toLocalTime();
         LocalDate startDateLoc = startLDTLoc.toLocalDate();
         ZonedDateTime endLDTLoc = TimeFunctions.getUTCtoLoc(appointment.getEnd());
         LocalTime endTimeloc = endLDTLoc.toLocalTime();
         LocalDate endDateLoc = endLDTLoc.toLocalDate();
-
-
 
         upAppStartCombo.setValue(startTimeloc);
         upAppStartDateCal.setValue(startDateLoc);
@@ -111,25 +97,10 @@ public class UpdateAppointment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void onActionUpAppContNameCombo(ActionEvent actionEvent) {
-    }
-
-    public void onActionUpAppStartCombo(ActionEvent actionEvent) {
-    }
-
-    public void onActionUpAppStartDateCal(ActionEvent actionEvent) {
-    }
-
-    public void onActionUpAppEndCombo(ActionEvent actionEvent) {
-    }
-
-    public void onActionUpAppEndDateCal(ActionEvent actionEvent) {
-    }
-
-    public void onActionUpAppSaveBttn(ActionEvent actionEvent) throws IOException {
+    public void onActionUpAppSaveBttn(ActionEvent actionEvent){
+        //Lambda Expression
         Counter incUpCounter = c -> {
             c++;
             DataProvider.setUpCounter(c);
@@ -175,19 +146,12 @@ public class UpdateAppointment {
                 busHours = true;
             }
 
-
-            //STOPPED HERE
-
             psti2.setString(1, String.valueOf(cont));
             rs = psti2.executeQuery();
             int contID = 0;
             while (rs.next()){
                 contID = rs.getInt(1);
             }
-
-            /*
-            INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)
-             */
 
             if(!(busHours)){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -230,24 +194,19 @@ public class UpdateAppointment {
             }
             else{
                 for (DBAppointment app: DataProvider.getAllAppointments()){
-                    //if(app.getAppID() == )
                     int i = Integer.parseInt(appID);
                     LocalDate checkDateStart = app.getStart().toLocalDate();
                     LocalTime checkTimeStart = app.getStart().toLocalTime();
-
                     LocalDate checkDateEnd = app.getEnd().toLocalDate();
                     LocalTime checkTimeEnd = app.getEnd().toLocalTime();
                     if(startD.equals(checkDateStart) && !(app.getAppID() == Integer.parseInt(appID)) ){
                         if((startT.isAfter(checkTimeStart) || startT.equals(checkTimeStart)) && startT.isBefore(checkTimeEnd)){
-                            System.out.println("Overlap!");
                             overLap = true;
                         }
                         else if(endT.isAfter(checkTimeStart) && (endT.isBefore(checkTimeEnd) || endT.equals(checkTimeEnd))){
-                            System.out.println("Overlap!");
                             overLap = true;
                         }
                         else if((startT.isBefore(checkTimeStart) || startT.equals(checkTimeStart)) && (endT.isAfter(checkTimeEnd) || endT.equals(checkTimeEnd))){
-                            System.out.println("Overlap!");
                             overLap = true;
                         }
                         else if (overLap){
@@ -262,21 +221,6 @@ public class UpdateAppointment {
                     alert.setContentText("There is appoint overlaps with appointment(s) " + overlapList);
                     alert.showAndWait();
                 }
-                /*
-                else if(nextDayStart){
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning!!");
-                    alert.setContentText("Selected Start time is at or past midnight! Please select next day!");
-                    alert.showAndWait();
-                }
-                else if(nextDayEnd) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning!!");
-                    alert.setContentText("Selected End time is at or past midnight! Please select next day!");
-                    alert.showAndWait();
-                }
-
-                 */
                 else{
                     psti.setString(1, title);
                     psti.setString(2, desc);
@@ -289,16 +233,15 @@ public class UpdateAppointment {
                     psti.setString(9, String.valueOf(contID));
                     psti.setString(10,appID);
                     psti.execute();
-
+                    //Lambda Expression
                     incUpCounter.addCounter(DataProvider.getUpCounter());
                     System.out.println(DataProvider.getUpCounter());
-
+                    //Lambda Expression
                     combString stringComb = s -> {
                         s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                         return s;
                     };
                     IOClass.insertLog(stringComb.cString("Appointment ID: " + appID + " has been updated!"));
-
 
                     stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
@@ -307,42 +250,20 @@ public class UpdateAppointment {
                 }
 
             }
-
-
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         } catch (NumberFormatException Ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
             alert.setContentText("Enter valid values in all text fields!");
             alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        /*
-            psti.setString(1, title);
-            psti.setString(2, desc);
-            psti.setString(3, loc);
-            psti.setString(4, type);
-            psti.setString(5, String.valueOf(finalStartTime));
-            psti.setString(6, String.valueOf(finalEndTime));
-            psti.setString(7, custID);
-            psti.setString(8, userID);
-            psti.setString(9, String.valueOf(contID));
-            psti.setString(10,appID);
-            psti.execute();
-
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
-
-         */
-
-
-
     }
 
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        //Lambda Expression
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
             return s;
@@ -353,8 +274,5 @@ public class UpdateAppointment {
         scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
-
-    public void onActionUpAppTypeCombo(ActionEvent actionEvent) {
     }
 }

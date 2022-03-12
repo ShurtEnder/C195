@@ -1,5 +1,6 @@
 package controller;
 
+import DBA.JDBC;
 import Interface.combString;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
@@ -26,16 +28,11 @@ import static java.util.ResourceBundle.getBundle;
 
 public class LoginPage implements Initializable {
 
-    public Label loginPageLbl;
-    public TextField userNameTxt;
-    public TextField passwordTxt;
-    public Label userNameLbl;
-    public Label passwordLbl;
-    public Button loginBttnTxt;
-    public Label zoneIDLbl;
+    public Label loginPageLbl,userNameLbl,passwordLbl,zoneIDLbl;
+    public TextField userNameTxt,passwordTxt;
+    public Button loginBttnTxt,exitBttnTxt;
     public static int userID;
     private String sqlQuery = "SELECT Appointment_ID, Start FROM client_schedule.appointments WHERE Start BETWEEN ? AND ? AND USER_ID = ?";
-
 
     Stage stage;
     Parent scene;
@@ -86,10 +83,6 @@ public class LoginPage implements Initializable {
             String cap = "";
             cap = loginPage;
             test = loginPage.toLowerCase();
-            /*
-            System.out.println(test);
-
-             */
             String[] loginPageList = stringList(test);
             String[] loginPageCapList = stringList(cap);
 
@@ -97,18 +90,9 @@ public class LoginPage implements Initializable {
                 String s = loginPageList[i];
                 String c = loginPageCapList[i];
                 if(isUpperCase(c)){
-                    /*
-                    System.out.println("Upper Case!");
-
-                     */
                     String trans = rb.getString(s);
                     char capLet = trans.toUpperCase().charAt(0);
                     char first = trans.charAt(0);
-                    /*
-                    System.out.println(capLet);
-                    System.out.println(first);
-
-                     */
                     loginPageList[i] = trans.replace(first, capLet);;
                 }
                 else{
@@ -136,18 +120,9 @@ public class LoginPage implements Initializable {
                 String s = loginPageList[i];
                 String c = loginPageCapList[i];
                 if(isUpperCase(c)){
-                    /*
-                    System.out.println("Upper Case!");
-
-                     */
                     String trans = rb.getString(s);
                     char capLet = trans.toUpperCase().charAt(0);
                     char first = trans.charAt(0);
-                    /*
-                    System.out.println(capLet);
-                    System.out.println(first);
-
-                     */
                     loginPageList[i] = trans.replace(first, capLet);;
                 }
                 else{
@@ -165,7 +140,6 @@ public class LoginPage implements Initializable {
     }
 
     public void onActionLoginBttn(ActionEvent actionEvent) throws SQLException, IOException {
-
         //Lambda Expression
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + userID + ": " + s;
@@ -184,14 +158,6 @@ public class LoginPage implements Initializable {
             int user_ID = rs.getInt(1);
             String usernameDB = rs.getString(2);
             String passwordDB = rs.getString(3);
-            /*
-            System.out.println("DB username: "+ usernameDB);
-            System.out.println("DB password: "+ passwordDB);
-            System.out.println("Text username: "+ userNameTxt.getText());
-            System.out.println("Text password: "+ passwordTxt.getText());
-
-             */
-
 
             if(usernameDB.equals(userNameTxt.getText()) && passwordDB.equals(passwordTxt.getText())){
                 String printAppID = null;
@@ -260,5 +226,18 @@ public class LoginPage implements Initializable {
             }
         }
 
+    }
+
+    public void onActionExit(ActionEvent actionEvent) {
+        ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
+        ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        String cancelStr = rb.getString("Cancel");
+        ButtonType cancel = new ButtonType(cancelStr, ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to exit?", ok, cancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ok) {
+            System.exit(0);
+            JDBC.closeConnection();
+        }
     }
 }

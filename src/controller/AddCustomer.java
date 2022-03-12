@@ -31,31 +31,16 @@ import java.util.ResourceBundle;
 import static DBA.JDBC.connection;
 
 public class AddCustomer implements Initializable {
-    public TextField addCustIDTxt;
-    public TextField addCustNameTxt;
-    public TextField addCustAddressTxt;
-    public TextField addCustPCodeTxt;
-    public TextField addCustPNumberTxt;
-    public ComboBox addCustCountyCombo;
-    public ComboBox addCustFLDCombo;
+    public TextField addCustIDTxt,addCustNameTxt,addCustAddressTxt,addCustPCodeTxt,addCustPNumberTxt;
+    public ComboBox addCustCountyCombo,addCustFLDCombo;
     private String sqlQuery = "INSERT INTO client_schedule.customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?,?,?,?,?)";
-    private int intDID;
-    /*
-    private String sqlQuery = "insert into client_schedule.customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES ('Test', 'Test', 'Test', 'Test','24')";
-
-     */
 
     Stage stage;
     Parent scene;
 
-
-
     public void onActionAddCustCountyCombo(ActionEvent actionEvent) {
-
         int countryID = 0;
         ObservableList list = FXCollections.observableArrayList();
-
-
         for(DBCountryDID country : DataProvider.getAllCountry()){
             if(country.getCountry() ==addCustCountyCombo.getValue()){
                 countryID = country.getCountryID();
@@ -74,9 +59,6 @@ public class AddCustomer implements Initializable {
         }
         addCustFLDCombo.setItems(list);
 
-    }
-
-    public void onActionAddCustFLDCombo(ActionEvent actionEvent) {
     }
 
     public void onActionAddCustSaveBttn(ActionEvent actionEvent) throws IOException {
@@ -103,24 +85,20 @@ public class AddCustomer implements Initializable {
             while (rs.next()) {
                 custDIDo = rs.getInt(1);
             }
-
             psti.setString(1, custName);
             psti.setString(2, custAdd);
             psti.setString(3, custPC);
             psti.setString(4, custPhone);
             psti.setInt(5, custDIDo);
-
             psti.execute();
-
+            //Lambda Expression
             combString stringComb = s -> {
                 s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("New customer has been added!" ));
-
+            //Lambda Expression
             incAddCounter.addCounter(DataProvider.getNewCounter());
-
-
         } catch (NumberFormatException Ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
@@ -129,14 +107,14 @@ public class AddCustomer implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
-        public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
+    public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        //Lambda Expression
             combString stringComb = s -> {
                 s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                 return s;
@@ -151,7 +129,6 @@ public class AddCustomer implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ObservableList list = FXCollections.observableArrayList();
         for(DBCountryDID country : DataProvider.getAllCountry()){
             list.add(country.getCountry());

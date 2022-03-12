@@ -23,48 +23,29 @@ import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
-public class AddAppointment implements Initializable {
-    public TextField addAppAppIDTxt;
-    public TextField addAppCustIDTxt;
-    public TextField addAppUserIDTxt;
-    public TextField addAppTitleTxt;
+public class AddAppointment{
+    public TextField addAppAppIDTxt,addAppCustIDTxt,addAppUserIDTxt,addAppTitleTxt,addAppLocTxt;
     public TextArea addAppDescTxt;
-    public TextField addAppLocTxt;
-    public ComboBox addAppContNameCombo;
-    public ComboBox addAppStartCombo;
-    public DatePicker addAppStartDateCal;
-    public ComboBox addAppEndCombo;
-    public DatePicker addAppEndDateCal;
-    public ComboBox addAppTypeCombo;
+    public ComboBox addAppContNameCombo,addAppStartCombo,addAppEndCombo,addAppTypeCombo;
+    public DatePicker addAppStartDateCal,addAppEndDateCal;
     private ObservableList typeList = FXCollections.observableArrayList("Planning Session","De-Briefing", "Meeting", "Break");
     private ObservableList contList = FXCollections.observableArrayList();
     private ObservableList timeList = FXCollections.observableArrayList();
+    private ArrayList overlapList = new ArrayList<>();
     private LocalDate localDate;
-    private LocalDateTime businessDTStart;
-    private LocalDateTime businessDTEnd;
     private String sqlQuery = "INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)";
-    private String sqlQuery2 = "SELECT * FROM client_schedule.appointments WHERE ? BETWEEN ? AND ?";
     private boolean overLap = false;
     private boolean busHours = true;
-    private ArrayList overlapList = new ArrayList<>();
 
     Stage stage;
     Parent scene;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
     public void sendAddApp(DBCustomer customer){
         localDate = LocalDate.now();
         LocalDateTime timeDateLoc = LocalDateTime.now();
-        LocalDateTime timeDateEST = TimeFunctions.getLoctoEST(timeDateLoc).toLocalDateTime();
         LocalTime firstTime = LocalTime.parse("08:00");
         LocalDateTime firstDT = LocalDateTime.of(localDate, firstTime);
         LocalTime firstTime1 = TimeFunctions.getESTtoLoc(firstDT).toLocalTime();
-
-
         LocalTime lastTime = firstTime1.plusHours(14);
         timeList.add(firstTime1);
         while(!(firstTime1 == lastTime)){
@@ -74,12 +55,7 @@ public class AddAppointment implements Initializable {
 
         addAppStartCombo.setItems(timeList);
         addAppEndCombo.setItems(timeList);
-
-
         int custID = customer.getCustID();
-        /*
-        String custLocFull = customer.getCustAdd()
-         */
         addAppCustIDTxt.setText(String.valueOf(custID));
         addAppUserIDTxt.setText(String.valueOf(LoginPage.userID));
         addAppLocTxt.setText(String.valueOf(customer.getCustAdd()));
@@ -95,35 +71,16 @@ public class AddAppointment implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
-    public void onActionAddAppContNameCombo(ActionEvent actionEvent) {
-    }
-
-    public void onActionAddAppStartCombo(ActionEvent actionEvent) {
-    }
-
-    public void onActionAddAppStartDateCal(ActionEvent actionEvent) {
-    }
-
-    public void onActionAddAppEndCombo(ActionEvent actionEvent) {
-    }
-
-    public void onActionAddAppEndDateCal(ActionEvent actionEvent) {
-    }
-
-    public void onActionAddAppSaveBttn(ActionEvent actionEvent) throws IOException {
+    public void onActionAddAppSaveBttn(ActionEvent actionEvent){
+        //Lambda Expression
         Counter incAddCounter = c -> {
             c++;
             DataProvider.setNewCounter(c);
             return c;
         };
-
         try{
-
             overLap = false;
             overlapList.clear();
             PreparedStatement psti = connection.prepareStatement(sqlQuery);
@@ -138,39 +95,18 @@ public class AddAppointment implements Initializable {
             String loc = addAppLocTxt.getText();
             String type = String.valueOf(addAppTypeCombo.getSelectionModel().getSelectedItem());
             String cont = String.valueOf(addAppContNameCombo.getSelectionModel().getSelectedItem());
-
             LocalTime startT = LocalTime.parse(String.valueOf(addAppStartCombo.getSelectionModel().getSelectedItem()));
-            /*
-            if (startT.isAfter(LocalTime.parse("24:00")) || startT.equals(LocalTime.parse("00:00"))){
-                    nextDayStart = true;
-            }
-
-             */
             LocalDate startD = LocalDate.parse(String.valueOf(addAppStartDateCal.getValue()));
             LocalDateTime startComb = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(startD, startT)).toLocalDateTime();
             startT = startComb.toLocalTime();
             startD = startComb.toLocalDate();
             Timestamp finalStartTime = Timestamp.valueOf(startComb);
-
             LocalTime endT = LocalTime.parse(String.valueOf(addAppEndCombo.getSelectionModel().getSelectedItem()));
-            /*
-            if (endT.isAfter(LocalTime.parse("24:00")) || endT.equals(LocalTime.parse("00:00"))){
-                nextDayEnd = true;
-            }
-
-             */
             LocalDate endD = LocalDate.parse(String.valueOf(addAppEndDateCal.getValue()));
             LocalDateTime endComb = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(endD, endT)).toLocalDateTime();
             endT = endComb.toLocalTime();
             endD = endComb.toLocalDate();
             Timestamp finalEndTime = Timestamp.valueOf(endComb);
-
-            /*
-            LocalTime.parse((CharSequence) timeList.get(0));
-            LocalTime.parse((CharSequence) timeList.get(timeList.size() - 1));
-
-             */
-
             int busStartind = timeList.indexOf(addAppStartCombo.getSelectionModel().getSelectedItem());
             int busEndind = timeList.indexOf(addAppEndCombo.getSelectionModel().getSelectedItem());
 
@@ -179,24 +115,12 @@ public class AddAppointment implements Initializable {
             } else{
                 busHours = true;
             }
-
-            /*
-            businessDTStart = TimeFunctions.getLoctoUTC(TimeFunctions.combDT(startD, LocalTime.parse((CharSequence) timeList.get(0)))).toLocalDateTime();
-            businessDTEnd = businessDTStart.minusHours(10);
-
-             */
-
-
             psti2.setString(1, String.valueOf(cont));
             rs = psti2.executeQuery();
             int contID = 0;
             while (rs.next()){
                 contID = rs.getInt(1);
             }
-
-            /*
-            INSERT INTO client_schedule.appointments(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?)
-             */
             if(!(busHours)){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning!");
@@ -238,23 +162,18 @@ public class AddAppointment implements Initializable {
             }
             else{
                 for (DBAppointment app: DataProvider.getAllAppointments()){
-                    //if(app.getAppID() == )
                     LocalDate checkDateStart = app.getStart().toLocalDate();
                     LocalTime checkTimeStart = app.getStart().toLocalTime();
-
                     LocalDate checkDateEnd = app.getEnd().toLocalDate();
                     LocalTime checkTimeEnd = app.getEnd().toLocalTime();
                     if(startD.equals(checkDateStart)){
                         if((startT.isAfter(checkTimeStart) || startT.equals(checkTimeStart)) && startT.isBefore(checkTimeEnd)){
-                            System.out.println("Overlap!");
                             overLap = true;
                         }
                         else if(endT.isAfter(checkTimeStart) && (endT.isBefore(checkTimeEnd) || endT.equals(checkTimeEnd))){
-                            System.out.println("Overlap!");
                             overLap = true;
                         }
                         else if((startT.isBefore(checkTimeStart) || startT.equals(checkTimeStart)) && (endT.isAfter(checkTimeEnd) || endT.equals(checkTimeEnd))){
-                            System.out.println("Overlap!");
                             overLap = true;
                         }
                         else if (overLap){
@@ -269,21 +188,6 @@ public class AddAppointment implements Initializable {
                     alert.setContentText("There is appoint overlaps with appointment(s) " + overlapList);
                     alert.showAndWait();
                 }
-                /*
-                else if(nextDayStart){
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning!!");
-                    alert.setContentText("Selected Start time is at or past midnight! Please select next day!");
-                    alert.showAndWait();
-                }
-                else if(nextDayEnd) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning!!");
-                    alert.setContentText("Selected End time is at or past midnight! Please select next day!");
-                    alert.showAndWait();
-                }
-
-                 */
                 else{
                     psti.setString(1, title);
                     psti.setString(2, desc);
@@ -295,13 +199,13 @@ public class AddAppointment implements Initializable {
                     psti.setString(8, userID);
                     psti.setString(9, String.valueOf(contID));
                     psti.execute();
-
+                    //Lambda Expression
                     combString stringComb = s -> {
                         s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                         return s;
                     };
                     IOClass.insertLog(stringComb.cString("New appointment has been added!" ));
-
+                    //Lambda Expression
                     incAddCounter.addCounter(DataProvider.getNewCounter());
 
                     stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -309,23 +213,21 @@ public class AddAppointment implements Initializable {
                     stage.setScene(new Scene(scene));
                     stage.show();
                 }
-
             }
-
-
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         } catch (NumberFormatException Ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
             alert.setContentText("Enter valid values in all text fields!");
             alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
     }
 
     public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        //Lambda Expression
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
             return s;
@@ -336,9 +238,5 @@ public class AddAppointment implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
-    public void onActionAddAppTypeCombo(ActionEvent actionEvent) {
-    }
-
 
 }

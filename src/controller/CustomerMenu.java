@@ -36,7 +36,6 @@ public class CustomerMenu implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ResultSet rs = null;
         try {
             DataProvider.getAllCustomers().clear();
@@ -52,7 +51,6 @@ public class CustomerMenu implements Initializable {
                 int custDID = Integer.parseInt(rs.getString(10));
                 DBCustomer dbInfo = new DBCustomer(custID,custName,custAdd,custPC, custPhone, custDID);
                 DataProvider.addCustomer(dbInfo);
-
             }
             rs = stmt.executeQuery("SELECT * FROM client_schedule.countries");
             while(rs.next()){
@@ -61,12 +59,9 @@ public class CustomerMenu implements Initializable {
                 DBCountryDID dbCountry = new DBCountryDID(countryID,country);
                 DataProvider.addCountry(dbCountry);
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         custTableView.setItems(DataProvider.getAllCustomers());
         custIDCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
@@ -75,20 +70,6 @@ public class CustomerMenu implements Initializable {
         custCodeCol.setCellValueFactory(new PropertyValueFactory<>("custPC"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
         custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
-
-        /*
-        appTableView.setItems(DataProvider.getAllAppointments());
-        appIDCol.setCellValueFactory(new PropertyValueFactory<>("AppID"));
-        appCustIDCol.setCellValueFactory(new PropertyValueFactory<>("CustID"));
-        appTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        appLocCol.setCellValueFactory(new PropertyValueFactory<>("Loc"));
-        appTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        appSECol.setCellValueFactory(new PropertyValueFactory<>("combSE"));
-
-         */
-
-
-
     }
 
     public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
@@ -119,14 +100,12 @@ public class CustomerMenu implements Initializable {
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
             stage.show();
-
         } catch (NullPointerException Te){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
             alert.setContentText("No customer selected!");
             alert.showAndWait();
         }
-
     }
 
     public void onActionDelCustBttn(ActionEvent actionEvent) {
@@ -149,7 +128,6 @@ public class CustomerMenu implements Initializable {
                 while (rs.next()){
                     appThere = true;
                 }
-
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Are you sure you want to delete customer?");
                 Optional<ButtonType> result = alert.showAndWait();
@@ -174,8 +152,6 @@ public class CustomerMenu implements Initializable {
                             int custDID = Integer.parseInt(rs.getString(10));
                             DBCustomer dbInfo = new DBCustomer(custID,custName,custAdd,custPC, custPhone, custDID);
                             DataProvider.addCustomer(dbInfo);
-
-
                         }
                     }
                     else {
@@ -195,42 +171,6 @@ public class CustomerMenu implements Initializable {
     }
 
     public void onActionAddAppBttn(ActionEvent actionEvent) throws IOException {
-        /*
-        try{
-            DataProvider.getAllAppointments().clear();
-            DBCustomer selected = (DBCustomer) custTableView.getSelectionModel().getSelectedItem();
-            String strQuery = "SELECT Appointment_ID, Customer_ID, Title, Location, Type, Start, End FROM appointments WHERE Customer_ID = '" + selected.getCustID() + "'";
-            ResultSet rs = null;
-            Statement stmt = connection.createStatement();
-            rs = stmt.executeQuery(strQuery);
-            while(rs.next()) {
-                int AppID = Integer.parseInt(rs.getString(1));
-                int CustID = Integer.parseInt(rs.getString(2));
-                String Title = rs.getString(3);
-                String Loc = rs.getString(4);
-                String Type = rs.getString(5);
-                LocalDateTime Start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
-                LocalDate date = TimeFunctions.zdtToDate(Start);
-                LocalTime time1 = TimeFunctions.zdtToTime(Start);
-                LocalDateTime End = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                LocalTime time2 = TimeFunctions.zdtToTime(End);
-
-                String combSE = date + " " + time1 + "/" + time2;
-                DBAppointment appointment = new DBAppointment(AppID, CustID, Title, Loc, Type, Start, End, combSE);
-                DataProvider.addAppointment(appointment);
-                custInfoLbl.setText("Showing Info of Customer: " + selected.getCustName());
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            catch (NullPointerException Te) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error!");
-                alert.setContentText("No customer selected!");
-                alert.showAndWait();
-            }
-
-         */
         try {
             combString stringComb = s -> {
                 s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
@@ -246,7 +186,6 @@ public class CustomerMenu implements Initializable {
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
             stage.show();
-
         } catch (NullPointerException Te){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");

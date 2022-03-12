@@ -36,7 +36,7 @@
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0">
                     <children>
                         <ComboBox fx:id="upCustCountyCombo" onAction="#onActionUpCustCountyCombo" prefWidth="150.0" promptText="Select Country" />
-                        <ComboBox fx:id="upCustFLDCombo" onAction="#onActionUpCustFLDCombo" prefHeight="25.0" prefWidth="178.0" promptText="Select First Level Division" />
+                        <ComboBox fx:id="upCustFLDCombo" prefHeight="25.0" prefWidth="178.0" promptText="Select First Level Division" />
                     </children>
                 </HBox>
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="500.0" spacing="15.0">

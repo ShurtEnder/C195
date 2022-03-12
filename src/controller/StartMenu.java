@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 
 
 public class StartMenu {
-
-
     Stage stage;
     Parent scene;
 

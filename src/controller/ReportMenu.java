@@ -45,7 +45,6 @@ public class ReportMenu implements Initializable {
         PreparedStatement psti = connection.prepareStatement(sqlQuery);
         ResultSet rs = null;
         int counter = 0;
-
         if(TypeComboLbl.getValue() == null){
             return;
         }
@@ -64,7 +63,6 @@ public class ReportMenu implements Initializable {
         PreparedStatement psti = connection.prepareStatement(sqlQuery);
         ResultSet rs = null;
         int counter = 0;
-
         if(MonthComboLbl.getValue() == null){
             return;
         }
@@ -108,7 +106,6 @@ public class ReportMenu implements Initializable {
         endCol.setCellValueFactory(new PropertyValueFactory<>("localEnd"));
         appIDCol.setCellValueFactory(new PropertyValueFactory<>("AppID"));
 
-
         newCACounter.setText(String.valueOf(DataProvider.getNewCounter()));
         upCACounter.setText(String.valueOf(DataProvider.getUpCounter()));
         MonthComboLbl.setItems(monthList);
@@ -124,7 +121,6 @@ public class ReportMenu implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         if(!(DataProvider.getAllAppointments().isEmpty())){
             DataProvider.getAllAppointments().clear();
         }
@@ -146,12 +142,10 @@ public class ReportMenu implements Initializable {
                 String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void onActionBackBttn(ActionEvent actionEvent) throws IOException {

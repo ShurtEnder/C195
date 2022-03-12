@@ -39,5 +39,6 @@
             <Label fx:id="zoneIDLbl" />
             </children>
         </VBox>
+      <Button fx:id="exitBttnTxt" layoutX="481.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
     </children>
 </AnchorPane>

@@ -28,16 +28,7 @@ import static DBA.JDBC.connection;
 public class AppointmentMenu implements Initializable {
     public Label selectionMWLbl;
     public ToggleGroup MonthWeek;
-    public TableColumn appVAppIDCol;
-    public TableColumn appVTitleCol;
-    public TableColumn appVDescCol;
-    public TableColumn appVLocCol;
-    public TableColumn appVContactCol;
-    public TableColumn appVTypeCol;
-    public TableColumn appVStartCol;
-    public TableColumn appVEndCol;
-    public TableColumn appVCustIDCol;
-    public TableColumn appVUserIDCol;
+    public TableColumn appVAppIDCol,appVTitleCol,appVDescCol,appVLocCol,appVContactCol,appVTypeCol,appVStartCol,appVEndCol,appVCustIDCol,appVUserIDCol;;
     public TableView appVAppTableView;
     public RadioButton noFilterToggleBttn;
     private String sqlQuery = "DELETE FROM client_schedule.appointments WHERE Appointment_ID = ?";
@@ -83,7 +74,6 @@ public class AppointmentMenu implements Initializable {
                 String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,22 +85,11 @@ public class AppointmentMenu implements Initializable {
         localDateMStart = localDate.withDayOfMonth(1);
         localDateMEnd = localDate.withDayOfMonth(localDate.lengthOfMonth());
 
-
         System.out.println("Date today: " + localDate);
         System.out.println("Date end: " + localDateWEnd);
         System.out.println("Date start: " + localDateWStart);
         System.out.println("Month Start: " + localDateMStart);
         System.out.println("Month End: " + localDateMEnd);
-
-        /*
-        if(localDate.get(ChronoField. DAY_OF_WEEK) < 7){
-            localDateEnd.plusDays(7-localDate.get(ChronoField. DAY_OF_WEEK));
-        }
-        else if(localDate.get(ChronoField. DAY_OF_WEEK) > 7){
-            localDateEnd.minusDays(7-localDate.get(ChronoField. DAY_OF_WEEK));
-        }
-         */
-
     }
 
     public void onActionMonthRBttn(ActionEvent actionEvent) {
@@ -138,13 +117,12 @@ public class AppointmentMenu implements Initializable {
                 String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
-
+                //Lambda Expression
                 combString stringComb = s -> {
                     s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("Month radio button selected"));
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -178,13 +156,12 @@ public class AppointmentMenu implements Initializable {
                 String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
-
+                //Lambda Expression
                 combString stringComb = s -> {
                     s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("Week radio button selected"));
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -194,7 +171,6 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void onActionNoFilterRBttn(ActionEvent actionEvent) {
-
         ResultSet rs = null;
         if(!(DataProvider.getAllAppointments().isEmpty())){
             DataProvider.getAllAppointments().clear();
@@ -217,24 +193,23 @@ public class AppointmentMenu implements Initializable {
                 String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
-
+                //Lambda Expression
                 combString stringComb = s -> {
                     s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("No filter radio button selected"));
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void onActionUpdateAppBttn(ActionEvent actionEvent) throws IOException {
         try {
+            //Lambda Expression
             combString stringComb = s -> {
                 s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                 return s;
@@ -249,7 +224,6 @@ public class AppointmentMenu implements Initializable {
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
             stage.show();
-
         } catch (NullPointerException Te){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");
@@ -275,15 +249,13 @@ public class AppointmentMenu implements Initializable {
                     PreparedStatement psti = connection.prepareStatement(sqlQuery);
                     psti.setInt(1, appID);
                     psti.execute();
-
+                    //Lambda Expression
                     combString stringComb = s -> {
                         s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                         return s;
                     };
                     IOClass.insertLog(stringComb.cString("Appointment ID: " + appID + " was removed!"));
                     DataProvider.getAllAppointments().clear();
-
-
                     Statement stmt = connection.createStatement();
                     rs = stmt.executeQuery("SELECT Appointment_ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM client_schedule.appointments;");
                     while (rs.next()) {
@@ -301,13 +273,10 @@ public class AppointmentMenu implements Initializable {
                         String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
                         DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                         DataProvider.addAppointment(appointment);
-
                     }
                     noFilterToggleBttn.setSelected(true);
-
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -315,12 +284,13 @@ public class AppointmentMenu implements Initializable {
         }
     }
 
-        public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
-            combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
-                return s;
-            };
-            IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));
+    public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
+        //Lambda Expression
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
         stage.setScene(new Scene(scene));

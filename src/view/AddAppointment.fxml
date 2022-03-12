@@ -37,19 +37,19 @@
                   <TextField fx:id="addAppTitleTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextArea fx:id="addAppDescTxt" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="addAppLocTxt" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="addAppTypeCombo" onAction="#onActionAddAppTypeCombo" prefWidth="150.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="addAppTypeCombo" prefWidth="150.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
             <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="500.0" spacing="23.0">
                <children>
                   <Label text="Contact Name:" />
-                  <ComboBox fx:id="addAppContNameCombo" onAction="#onActionAddAppContNameCombo" prefHeight="25.0" prefWidth="156.0" promptText="Select Contact Name" />
+                  <ComboBox fx:id="addAppContNameCombo" prefHeight="25.0" prefWidth="156.0" promptText="Select Contact Name" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="500.0" spacing="15.0">
                <children>
                   <Label text="Start Time/Date:" />
-                  <ComboBox fx:id="addAppStartCombo" onAction="#onActionAddAppStartCombo" prefWidth="150.0" promptText="Select Time" />
+                  <ComboBox fx:id="addAppStartCombo" prefWidth="150.0" promptText="Select Time" />
                   <DatePicker fx:id="addAppStartDateCal" onAction="#onActionAddAppStartDateCal" promptText="Choose a Date" />
                </children>
             </HBox>
@@ -59,8 +59,8 @@
                      <padding>
                         <Insets right="4.0" />
                      </padding></Label>
-                  <ComboBox fx:id="addAppEndCombo" onAction="#onActionAddAppEndCombo" prefWidth="150.0" promptText="Select Time" />
-                  <DatePicker fx:id="addAppEndDateCal" onAction="#onActionAddAppEndDateCal" promptText="Choose a Date" />
+                  <ComboBox fx:id="addAppEndCombo" prefWidth="150.0" promptText="Select Time" />
+                  <DatePicker fx:id="addAppEndDateCal" promptText="Choose a Date" />
                </children>
             </HBox>
             <HBox alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="500.0" spacing="15.0">

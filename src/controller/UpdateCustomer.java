@@ -27,18 +27,12 @@ import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
-public class UpdateCustomer implements Initializable {
-    public TextField upCustIDTxt;
-    public TextField upCustNameTxt;
-    public TextField upCustAddressTxt;
-    public TextField upCustPCodeTxt;
-    public TextField upCustPNumberTxt;
-    public ComboBox upCustCountyCombo;
-    public ComboBox upCustFLDCombo;
+public class UpdateCustomer{
+    public TextField upCustIDTxt,upCustNameTxt,upCustAddressTxt,upCustPCodeTxt,upCustPNumberTxt;
+    public ComboBox upCustCountyCombo,upCustFLDCombo;
     private int intDID;
     private String sqlQuery1 = "SELECT Division,Country_ID FROM client_schedule.first_level_divisions WHERE Division_ID = ?";
     private String sqlQuery2 = "UPDATE client_schedule.customers SET Customer_name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
-
 
     Stage stage;
     Parent scene;
@@ -65,7 +59,6 @@ public class UpdateCustomer implements Initializable {
             ObservableList list = FXCollections.observableArrayList();
             ObservableList list2 = FXCollections.observableArrayList();
 
-
             int selCountry = 0;
             for (DBCountryDID country : DataProvider.getAllCountry()) {
                 list.add(country.getCountry());
@@ -73,7 +66,6 @@ public class UpdateCustomer implements Initializable {
                     selCountry = country.getCountryID();
                     upCustCountyCombo.setValue(country.getCountry());
                 }
-
             }
             upCustCountyCombo.setItems(list);
             upCustFLDCombo.setValue(custDIDo);
@@ -98,7 +90,6 @@ public class UpdateCustomer implements Initializable {
         int countryID = 0;
         ObservableList list = FXCollections.observableArrayList();
 
-
         for (DBCountryDID country : DataProvider.getAllCountry()) {
             if (country.getCountry() == upCustCountyCombo.getValue()) {
                 countryID = country.getCountryID();
@@ -119,20 +110,13 @@ public class UpdateCustomer implements Initializable {
 
     }
 
-    public void onActionUpCustFLDCombo(ActionEvent actionEvent) {
-    }
-
     public void onActionUpCustSaveBttn(ActionEvent actionEvent) throws IOException {
-        /*
-        "UPDATE client_schedule.customers SET Customer_name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?"
-         */
-
+        //Lambda Expression
         Counter incUpCounter = c -> {
             c++;
             DataProvider.setUpCounter(c);
             return c;
         };
-        ;
         try {
             String strQuery = "SELECT Division_ID FROM client_schedule.first_level_divisions where Division = ?";
             PreparedStatement psti2 = connection.prepareStatement(strQuery);
@@ -159,18 +143,16 @@ public class UpdateCustomer implements Initializable {
             psti.setString(4, custPhone);
             psti.setInt(5, custDIDo);
             psti.setInt(6,custID);
-
             psti.execute();
-
+            //Lambda Expression
             combString stringComb = s -> {
                 s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Customer ID: " + custID + " has been updated!"));
-
+            //Lambda Expression
             incUpCounter.addCounter(DataProvider.getUpCounter());
             System.out.println(DataProvider.getUpCounter());
-
 
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
@@ -179,11 +161,9 @@ public class UpdateCustomer implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
-
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
             return s;
@@ -194,11 +174,6 @@ public class UpdateCustomer implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }
 

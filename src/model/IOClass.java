@@ -8,16 +8,10 @@ import java.util.Scanner;
 public class IOClass {
     private static String filename = "login_activity.txt";
 
-
     public static void insertLog(String logString) throws IOException {
-        //Scanner text = new Scanner(logString);
-
         FileWriter fileWriter = new FileWriter(filename, true);
-
         PrintWriter outputFile = new PrintWriter(fileWriter);
-
         outputFile.println(logString);
-
         outputFile.close();
     }
 

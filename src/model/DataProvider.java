@@ -34,7 +34,6 @@ public class DataProvider {
         return allAppointments;
     }
 
-
     public static int getNewCounter() {
         return newCounter;
     }
