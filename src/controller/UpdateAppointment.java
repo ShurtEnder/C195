@@ -71,11 +71,10 @@ public class UpdateAppointment {
         LocalTime firstTime = LocalTime.parse("08:00");
         LocalDateTime firstDT = LocalDateTime.of(localDate, firstTime);
         LocalTime firstTime1 = TimeFunctions.getESTtoLoc(firstDT).toLocalTime();
-        System.out.println(firstTime1);
         LocalTime lastTime = firstTime1.plusHours(14);
         timeList.add(firstTime1);
         while(!(firstTime1 == lastTime)){
-            System.out.println(firstTime1);
+
             firstTime1 = firstTime1.plusMinutes(30);
             timeList.add(firstTime1);
         }
@@ -210,7 +209,7 @@ public class UpdateAppointment {
                             overLap = true;
                         }
                         else if (overLap){
-                            System.out.println(app.getAppID());
+
                             overlapList.add(app.getAppID());
                         }
                     }
@@ -235,7 +234,7 @@ public class UpdateAppointment {
                     psti.execute();
                     //Lambda Expression
                     incUpCounter.addCounter(DataProvider.getUpCounter());
-                    System.out.println(DataProvider.getUpCounter());
+
                     //Lambda Expression
                     combString stringComb = s -> {
                         s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;

@@ -50,7 +50,7 @@
                <children>
                   <Label text="Start Time/Date:" />
                   <ComboBox fx:id="addAppStartCombo" prefWidth="150.0" promptText="Select Time" />
-                  <DatePicker fx:id="addAppStartDateCal" onAction="#onActionAddAppStartDateCal" promptText="Choose a Date" />
+                  <DatePicker fx:id="addAppStartDateCal" promptText="Choose a Date" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="220.0" prefHeight="42.0" prefWidth="500.0" spacing="15.0">

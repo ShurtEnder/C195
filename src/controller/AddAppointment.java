@@ -177,7 +177,6 @@ public class AddAppointment{
                             overLap = true;
                         }
                         else if (overLap){
-                            System.out.println(app.getAppID());
                             overlapList.add(app.getAppID());
                         }
                     }

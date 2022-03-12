@@ -119,47 +119,34 @@ public class CustomerMenu implements Initializable {
             }
             else {
                 int custID2 = ((DBCustomer) custTableView.getSelectionModel().getSelectedItem()).getCustID();
-                PreparedStatement psti = connection.prepareStatement(sqlQuery);
                 PreparedStatement psti2 = connection.prepareStatement(sqlQuery2);
                 ResultSet rs = null;
-                psti.setInt(1,custID2);
                 psti2.setInt(1, custID2);
-                rs = psti.executeQuery();
-                while (rs.next()){
-                    appThere = true;
-                }
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Are you sure you want to delete customer?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    if(!appThere){
-                        psti2.execute();
-                        combString stringComb = s -> {
-                            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
-                            return s;
-                        };
-                        IOClass.insertLog(stringComb.cString("Customer ID: " + custID2 + "has been removed!"));
+                    psti2.execute();
+                    combString stringComb = s -> {
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        return s;
+                    };
+                    IOClass.insertLog(stringComb.cString("Customer ID: " + custID2 + "has been removed!"));
 
-                        DataProvider.getAllCustomers().clear();
-                        Statement stmt = connection.createStatement();
-                        rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
-                        while(rs.next()){
-                            int custID = Integer.parseInt(rs.getString(1));
-                            String custName = rs.getString(2);
-                            String custAdd = rs.getString(3);
-                            String custPC = rs.getString(4);
-                            String custPhone = rs.getString(5);
-                            int custDID = Integer.parseInt(rs.getString(10));
-                            DBCustomer dbInfo = new DBCustomer(custID,custName,custAdd,custPC, custPhone, custDID);
-                            DataProvider.addCustomer(dbInfo);
-                        }
+                    DataProvider.getAllCustomers().clear();
+                    Statement stmt = connection.createStatement();
+                    rs = stmt.executeQuery("SELECT * FROM client_schedule.customers");
+                    while(rs.next()) {
+                        int custID = Integer.parseInt(rs.getString(1));
+                        String custName = rs.getString(2);
+                        String custAdd = rs.getString(3);
+                        String custPC = rs.getString(4);
+                        String custPhone = rs.getString(5);
+                        int custDID = Integer.parseInt(rs.getString(10));
+                        DBCustomer dbInfo = new DBCustomer(custID, custName, custAdd, custPC, custPhone, custDID);
+                        DataProvider.addCustomer(dbInfo);
                     }
-                    else {
-                        Alert alert1 = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("WARNING!");
-                        alert.setContentText("Customer has appointments!");
-                        alert.showAndWait();
-                    }
+
                 }
             }
         } catch (SQLException e) {

@@ -84,12 +84,6 @@ public class AppointmentMenu implements Initializable {
         localDateWStart = localDateWEnd.minusDays(6);
         localDateMStart = localDate.withDayOfMonth(1);
         localDateMEnd = localDate.withDayOfMonth(localDate.lengthOfMonth());
-
-        System.out.println("Date today: " + localDate);
-        System.out.println("Date end: " + localDateWEnd);
-        System.out.println("Date start: " + localDateWStart);
-        System.out.println("Month Start: " + localDateMStart);
-        System.out.println("Month End: " + localDateMEnd);
     }
 
     public void onActionMonthRBttn(ActionEvent actionEvent) {

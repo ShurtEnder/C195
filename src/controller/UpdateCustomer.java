@@ -152,7 +152,6 @@ public class UpdateCustomer{
             IOClass.insertLog(stringComb.cString("Customer ID: " + custID + " has been updated!"));
             //Lambda Expression
             incUpCounter.addCounter(DataProvider.getUpCounter());
-            System.out.println(DataProvider.getUpCounter());
 
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
