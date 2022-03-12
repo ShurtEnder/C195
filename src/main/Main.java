@@ -3,7 +3,6 @@ package main;
 import java.util.*;
 
 import DBA.JDBC;
-import Interface.SimpleList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class StartMenu {
 
+
     Stage stage;
     Parent scene;
 
@@ -31,7 +32,7 @@ public class StartMenu {
 
     public void onActionReportsBttn(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/view/ReportMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }

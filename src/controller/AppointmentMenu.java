@@ -1,6 +1,5 @@
 package controller;
 
-import Interface.SimpleList;
 import Interface.errorMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.DBAppointment;
-import model.DBCustomer;
 import model.DataProvider;
 
 import java.io.IOException;

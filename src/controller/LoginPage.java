@@ -1,6 +1,5 @@
 package controller;
 
-import Interface.SimpleList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +30,9 @@ public class LoginPage implements Initializable {
     public Button loginBttnTxt;
     public Label zoneIDLbl;
     public static int userID;
+
+    public static int newCounter = 0;
+    public static int upCounter = 0;
 
     Stage stage;
     Parent scene;
@@ -63,6 +65,8 @@ public class LoginPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        newCounter = 0;
+        upCounter = 0;
         userID = 0;
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         ZoneId zoneID = ZoneId.systemDefault();
