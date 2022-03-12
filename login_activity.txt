@@ -1,0 +1,70 @@
+2022-03-12T11:28:40.753832200 0Login attempt failed
+2022-03-12T16:32:22.026060700Z 0 Login attempt failed
+2022-03-12T16:34:16.260017200ZUser: 0 Login attempt failed
+2022-03-12T16:34:58.919173300Z User 0: Login attempt failed
+2022-03-12T16:37:32.108342300Z User 1: Login attempt success!
+2022-03-12T16:41:19.027003100Z User 0: Login attempt failed
+2022-03-12T16:41:22.295977300Z User 1: Login attempt success!
+2022-03-12T16:41:23.068679900Z User 1: Customer menu button hit!
+2022-03-12T16:41:24.614102500Z User 1: Appointment menu button hit!
+2022-03-12T16:41:26.425563400Z User 1: Appointment menu button hit!
+2022-03-12T16:41:27.876890200Z User 1: Report menu button hit!
+2022-03-12T16:41:29.387262800Z User 1: Logout button hit!
+2022-03-12T17:07:36.462973500Z User 1: Login attempt success!
+2022-03-12T17:07:37.285606100Z User 1: Report menu button hit!
+2022-03-12T17:07:38.342568Z User 1: Back button hit, going back to Start Menu
+2022-03-12T17:07:39.487647400Z User 1: Customer menu button hit!
+2022-03-12T17:07:40.670723400Z User 1: Back button hit, going back to Start Menu
+2022-03-12T17:07:41.325316600Z User 1: Appointment menu button hit!
+2022-03-12T17:07:43.056892800Z User 1: Back button hit, going back to Start Menu
+2022-03-12T17:07:44.294016900Z User 1: Logout button hit!
+2022-03-12T17:54:37.037781200Z User 1: Login attempt success!
+2022-03-12T17:55:14.415575500Z User 1: Login attempt success!
+2022-03-12T17:57:16.747720300Z User 1: Login attempt success!
+2022-03-12T17:58:33.065172200Z User 1: Login attempt success!
+2022-03-12T17:58:36.185007200Z User 1: Logout button hit!
+2022-03-12T17:58:59.427123Z User 1: Login attempt success!
+2022-03-12T17:59:02.407915300Z User 1: Appointment menu button hit!
+2022-03-12T17:59:03.939967100Z User 1: Back button hit, going back to Start Menu
+2022-03-12T17:59:05.606482Z User 1: Customer menu button hit!
+2022-03-12T17:59:08.622224900Z User 1: Update customer button hit
+2022-03-12T17:59:11.218772500Z User 1: Cancel button hit, going back to customer Menu
+2022-03-12T17:59:13.238463700Z User 1: Add appointment button hit
+2022-03-12T18:00:05.988051100Z User 1: New appointment has been added!
+2022-03-12T18:00:07.613747300Z User 1: Back button hit, going back to Start Menu
+2022-03-12T18:00:08.378999600Z User 1: Appointment menu button hit!
+2022-03-12T18:00:09.852098500Z User 1: Update application button hit
+2022-03-12T18:00:43.443525700Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-12T18:00:44.624599400Z User 1: Back button hit, going back to Start Menu
+2022-03-12T18:00:45.998881900Z User 1: Logout button hit!
+2022-03-12T18:00:50.386132800Z User 1: Login attempt success!
+2022-03-12T18:00:52.328897700Z User 1: Logout button hit!
+2022-03-12T18:03:01.388236500Z User 1: Login attempt success!
+2022-03-12T18:03:50.144334200Z User 1: Login attempt success!
+2022-03-12T18:06:54.872915Z User 0: Login attempt failed
+2022-03-12T18:07:00.526335200Z User 1: Login attempt success!
+2022-03-12T18:07:20.858051200Z User 1: Logout button hit!
+2022-03-12T18:07:24.958781300Z User 2: Login attempt success!
+2022-03-12T18:07:26.525203700Z User 2: Logout button hit!
+2022-03-12T18:07:29.128889400Z User 1: Login attempt success!
+2022-03-12T18:08:44.597129800Z User 1: Login attempt success!
+2022-03-12T18:09:17.526817700Z User 1: Login attempt success!
+2022-03-12T18:12:55.078206100Z User 1: Login attempt success!
+2022-03-12T18:13:05.454142100Z User 1: Logout button hit!
+2022-03-12T18:13:45.023558600Z User 1: Login attempt success!
+2022-03-12T18:37:41.353763200Z User 1: Login attempt success!
+2022-03-12T18:38:27.940669600Z User 1: Customer menu button hit!
+2022-03-12T18:39:52.628464Z User 1: Add customer button hit
+2022-03-12T18:41:12.927798600Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T18:41:57.403022200Z User 1: Update customer button hit
+2022-03-12T18:42:33.883197400Z User 1: Cancel button hit, going back to customer Menu
+2022-03-12T18:43:36.747189600Z User 1: Add appointment button hit
+2022-03-12T18:44:15.247739900Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T18:44:19.075435300Z User 1: Back button hit, going back to Start Menu
+2022-03-12T18:45:01.173678300Z User 1: Appointment menu button hit!
+2022-03-12T18:47:48.326401900Z User 1: Back button hit, going back to Start Menu
+2022-03-12T18:48:04.385669200Z User 1: Report menu button hit!
+2022-03-12T18:49:09.889148Z User 1: Back button hit, going back to Start Menu
+2022-03-12T18:49:12.723154200Z User 1: Appointment menu button hit!
+2022-03-12T18:49:18.561537600Z User 1: Update application button hit
+2022-03-12T18:49:23.330482100Z User 1: Cancel button hit, going back to Appointment Menu
