@@ -1,5 +1,6 @@
 package controller;
 
+import Interface.Counter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -117,6 +118,12 @@ public class AddAppointment implements Initializable {
     }
 
     public void onActionAddAppSaveBttn(ActionEvent actionEvent) throws IOException {
+        Counter incAddCounter = c -> {
+            c++;
+            DataProvider.setNewCounter(c);
+            return c;
+        };
+
         try{
 
             overLap = false;
@@ -290,6 +297,8 @@ public class AddAppointment implements Initializable {
                     psti.setString(8, userID);
                     psti.setString(9, String.valueOf(contID));
                     psti.execute();
+
+                    incAddCounter.addCounter(DataProvider.getNewCounter());
 
                     stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));

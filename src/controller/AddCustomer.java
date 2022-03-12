@@ -1,5 +1,6 @@
 package controller;
 
+import Interface.Counter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +47,7 @@ public class AddCustomer implements Initializable {
 
 
     public void onActionAddCustCountyCombo(ActionEvent actionEvent) {
+
         int countryID = 0;
         ObservableList list = FXCollections.observableArrayList();
 
@@ -74,7 +76,11 @@ public class AddCustomer implements Initializable {
     }
 
     public void onActionAddCustSaveBttn(ActionEvent actionEvent) throws IOException {
-
+        Counter incAddCounter = c -> {
+            c++;
+            DataProvider.setNewCounter(c);
+            return c;
+        };
         try {
             PreparedStatement psti = connection.prepareStatement(sqlQuery);
             String strQuery = "SELECT Division_ID FROM client_schedule.first_level_divisions where Division = ?";
@@ -101,6 +107,8 @@ public class AddCustomer implements Initializable {
             psti.setInt(5, custDIDo);
 
             psti.execute();
+
+            incAddCounter.addCounter(DataProvider.getNewCounter());
 
 
         } catch (NumberFormatException Ex) {

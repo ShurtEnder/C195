@@ -1,5 +1,7 @@
 package controller;
 
+import Interface.Counter;
+import com.mysql.cj.log.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -126,6 +128,11 @@ public class UpdateAppointment {
     }
 
     public void onActionUpAppSaveBttn(ActionEvent actionEvent) throws IOException {
+        Counter incUpCounter = c -> {
+            c++;
+            DataProvider.setUpCounter(c);
+            return c;
+        };
         try{
             overLap = false;
             overlapList.clear();
@@ -280,6 +287,10 @@ public class UpdateAppointment {
                     psti.setString(9, String.valueOf(contID));
                     psti.setString(10,appID);
                     psti.execute();
+
+                    incUpCounter.addCounter(DataProvider.getUpCounter());
+                    System.out.println(DataProvider.getUpCounter());
+
 
                     stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));

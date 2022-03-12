@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.DBAppointment;
 import model.DataProvider;
+import model.TimeFunctions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,8 +57,8 @@ public class AppointmentMenu implements Initializable {
         appVDescCol.setCellValueFactory(new PropertyValueFactory<>("Desc"));
         appVLocCol.setCellValueFactory(new PropertyValueFactory<>("Loc"));
         appVTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        appVStartCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
-        appVEndCol.setCellValueFactory(new PropertyValueFactory<>("End"));
+        appVStartCol.setCellValueFactory(new PropertyValueFactory<>("localStart"));
+        appVEndCol.setCellValueFactory(new PropertyValueFactory<>("localEnd"));
         appVAppIDCol.setCellValueFactory(new PropertyValueFactory<>("AppID"));
 
         if(!(DataProvider.getAllAppointments().isEmpty())){
@@ -77,7 +78,9 @@ public class AppointmentMenu implements Initializable {
                 String type = rs.getString(5);
                 LocalDateTime start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
                 LocalDateTime end = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end);
+                String localStart = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(start).toLocalDateTime());
+                String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
+                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
             }
@@ -130,7 +133,9 @@ public class AppointmentMenu implements Initializable {
                 String type = rs.getString(5);
                 LocalDateTime start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
                 LocalDateTime end = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end);
+                String localStart = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(start).toLocalDateTime());
+                String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
+                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
             }
@@ -160,7 +165,9 @@ public class AppointmentMenu implements Initializable {
                 String type = rs.getString(5);
                 LocalDateTime start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
                 LocalDateTime end = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end);
+                String localStart = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(start).toLocalDateTime());
+                String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
+                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
             }
@@ -192,7 +199,9 @@ public class AppointmentMenu implements Initializable {
                 String type = rs.getString(5);
                 LocalDateTime start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
                 LocalDateTime end = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end);
+                String localStart = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(start).toLocalDateTime());
+                String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
+                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
             }
@@ -255,7 +264,9 @@ public class AppointmentMenu implements Initializable {
                         String type = rs.getString(5);
                         LocalDateTime start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
                         LocalDateTime end = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                        DBAppointment appointment = new DBAppointment(appID, custID, userID, contID, title, desc, loc, type, start, end);
+                        String localStart = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(start).toLocalDateTime());
+                        String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
+                        DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                         DataProvider.addAppointment(appointment);
 
                     }

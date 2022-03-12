@@ -1,5 +1,7 @@
 package controller;
 
+import Interface.Counter;
+import com.mysql.cj.log.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,7 +61,6 @@ public class UpdateCustomer implements Initializable {
             while (rs.next()) {
                 custDIDo = rs.getString(1);
                 custCount = rs.getInt(2);
-                System.out.println(custCount);
             }
             ObservableList list = FXCollections.observableArrayList();
             ObservableList list2 = FXCollections.observableArrayList();
@@ -125,6 +126,13 @@ public class UpdateCustomer implements Initializable {
         /*
         "UPDATE client_schedule.customers SET Customer_name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?"
          */
+
+        Counter incUpCounter = c -> {
+            c++;
+            DataProvider.setUpCounter(c);
+            return c;
+        };
+        ;
         try {
             String strQuery = "SELECT Division_ID FROM client_schedule.first_level_divisions where Division = ?";
             PreparedStatement psti2 = connection.prepareStatement(strQuery);
@@ -153,6 +161,10 @@ public class UpdateCustomer implements Initializable {
             psti.setInt(6,custID);
 
             psti.execute();
+
+            incUpCounter.addCounter(DataProvider.getUpCounter());
+            System.out.println(DataProvider.getUpCounter());
+
 
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));

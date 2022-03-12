@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 public class DBAppointment {
     private int AppID, CustID, UserID, Contact;
-    private String Title, Loc, Type, Desc;
+    private String Title, Loc, Type, Desc, localStart, localEnd;
     private LocalDateTime Start, End;
 
-    public DBAppointment(int AppID, int CustID, int UserID ,int Contact,String Title, String Desc, String Loc, String Type, LocalDateTime Start, LocalDateTime End ){
+    public DBAppointment(int AppID, int CustID, int UserID ,int Contact,String Title, String Desc, String Loc, String Type, LocalDateTime Start, LocalDateTime End, String localStart, String localEnd ){
         this.AppID = AppID;
         this.CustID = CustID;
         this.Title = Title;
@@ -18,6 +18,8 @@ public class DBAppointment {
         this.Desc = Desc;
         this.UserID = UserID;
         this.Contact = Contact;
+        this.localStart = localStart;
+        this.localEnd = localEnd;
     }
 
     public int getAppID() {
@@ -98,5 +100,21 @@ public class DBAppointment {
 
     public void setContact(int contact) {
         Contact = contact;
+    }
+
+    public String getLocalStart() {
+        return localStart;
+    }
+
+    public void setLocalStart(String localStart) {
+        this.localStart = localStart;
+    }
+
+    public String getLocalEnd() {
+        return localEnd;
+    }
+
+    public void setLocalEnd(String localEnd) {
+        this.localEnd = localEnd;
     }
 }

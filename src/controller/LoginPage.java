@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.DataProvider;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,8 +32,6 @@ public class LoginPage implements Initializable {
     public Label zoneIDLbl;
     public static int userID;
 
-    public static int newCounter = 0;
-    public static int upCounter = 0;
 
     Stage stage;
     Parent scene;
@@ -65,8 +64,8 @@ public class LoginPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        newCounter = 0;
-        upCounter = 0;
+        DataProvider.setNewCounter(0);
+        DataProvider.setUpCounter(0);
         userID = 0;
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         ZoneId zoneID = ZoneId.systemDefault();

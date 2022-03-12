@@ -62,5 +62,6 @@
             </GridPane>
             </children>
         </VBox>
+      <Button layoutX="554.0" layoutY="416.0" mnemonicParsing="false" onAction="#onActionBackBttn" text="Back" />
     </children>
 </AnchorPane>

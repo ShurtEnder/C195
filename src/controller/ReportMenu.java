@@ -4,15 +4,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.DBAppointment;
 import model.DataProvider;
+import model.TimeFunctions;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -31,6 +34,9 @@ public class ReportMenu implements Initializable {
     private ObservableList<DBAppointment> contTableList = FXCollections.observableArrayList();
     private String sqlQuery = "SELECT Start FROM client_schedule.appointments WHERE MONTH(Start) = ? AND Type = ?";
     private String sqlQuery1 = "SELECT Contact_ID FROM client_schedule.contacts WHERE Contact_Name = ?";
+
+    Stage stage;
+    Parent scene;
 
 
     public void OnActionMonthCombo(ActionEvent actionEvent) throws SQLException {
@@ -96,13 +102,13 @@ public class ReportMenu implements Initializable {
         contactTableView.setItems(contTableList);
         custIDCol.setCellValueFactory(new PropertyValueFactory<>("CustID"));
         descCol.setCellValueFactory(new PropertyValueFactory<>("Desc"));
-        startCol.setCellValueFactory(new PropertyValueFactory<>("Start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("End"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("localStart"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("localEnd"));
         appIDCol.setCellValueFactory(new PropertyValueFactory<>("AppID"));
 
 
-        newCACounter.setText(String.valueOf(LoginPage.newCounter));
-        upCACounter.setText(String.valueOf(LoginPage.upCounter));
+        newCACounter.setText(String.valueOf(DataProvider.getNewCounter()));
+        upCACounter.setText(String.valueOf(DataProvider.getUpCounter()));
         MonthComboLbl.setItems(monthList);
         TypeComboLbl.setItems(typeListList);
 
@@ -134,7 +140,9 @@ public class ReportMenu implements Initializable {
                 String type = rs.getString(5);
                 LocalDateTime start = Timestamp.valueOf(rs.getString(6)).toLocalDateTime();
                 LocalDateTime end = Timestamp.valueOf(rs.getString(7)).toLocalDateTime();
-                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end);
+                String localStart = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(start).toLocalDateTime());
+                String localEnd = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(end).toLocalDateTime());
+                DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
             }
@@ -142,5 +150,12 @@ public class ReportMenu implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 }
