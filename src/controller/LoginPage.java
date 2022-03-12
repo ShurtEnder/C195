@@ -1,5 +1,6 @@
 package controller;
 
+import Interface.combString;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,12 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.DataProvider;
+import model.IOClass;
+import model.TimeFunctions;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -161,6 +165,12 @@ public class LoginPage implements Initializable {
     }
 
     public void onActionLoginBttn(ActionEvent actionEvent) throws SQLException, IOException {
+
+        //Lambda Expression
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + userID + ": " + s;
+            return s;
+        };
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         String message = "No user or password found!";
 
@@ -184,6 +194,7 @@ public class LoginPage implements Initializable {
             if(usernameDB.equals(userNameTxt.getText()) && passwordDB.equals(passwordTxt.getText())){
                 userFound = true;
                 userID = user_ID;
+                IOClass.insertLog(stringComb.cString("Login attempt success!"));
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
                 stage.setScene(new Scene(scene));
@@ -193,6 +204,7 @@ public class LoginPage implements Initializable {
         }
         if(!userFound){
             if(Locale.getDefault().getLanguage().equals("en")) {
+                IOClass.insertLog(stringComb.cString("Login attempt failed"));
                 String okStr = rb.getString("OK");
                 ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
                 Alert alert = new Alert(Alert.AlertType.NONE, message, ok);

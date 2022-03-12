@@ -1,6 +1,7 @@
 package controller;
 
 import Interface.Counter;
+import Interface.combString;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,10 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.DBAppointment;
-import model.DBCustomer;
-import model.DataProvider;
-import model.TimeFunctions;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -298,6 +296,12 @@ public class AddAppointment implements Initializable {
                     psti.setString(9, String.valueOf(contID));
                     psti.execute();
 
+                    combString stringComb = s -> {
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        return s;
+                    };
+                    IOClass.insertLog(stringComb.cString("New appointment has been added!" ));
+
                     incAddCounter.addCounter(DataProvider.getNewCounter());
 
                     stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -322,6 +326,11 @@ public class AddAppointment implements Initializable {
     }
 
     public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Customer Menu"));
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));

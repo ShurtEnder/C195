@@ -1,6 +1,7 @@
 package controller;
 
 import Interface.Counter;
+import Interface.combString;
 import com.mysql.cj.log.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.DBCustomer;
-import model.DBCountryDID;
-import model.DataProvider;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
@@ -162,6 +162,12 @@ public class UpdateCustomer implements Initializable {
 
             psti.execute();
 
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Customer ID: " + custID + " has been updated!"));
+
             incUpCounter.addCounter(DataProvider.getUpCounter());
             System.out.println(DataProvider.getUpCounter());
 
@@ -177,6 +183,13 @@ public class UpdateCustomer implements Initializable {
     }
 
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
+
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Cancel button hit, going back to customer Menu"));
+
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));

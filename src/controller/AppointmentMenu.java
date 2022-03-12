@@ -1,6 +1,6 @@
 package controller;
 
-import Interface.errorMessage;
+import Interface.combString;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.DBAppointment;
 import model.DataProvider;
+import model.IOClass;
 import model.TimeFunctions;
 
 import java.io.IOException;
@@ -138,8 +139,16 @@ public class AppointmentMenu implements Initializable {
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
+                combString stringComb = s -> {
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    return s;
+                };
+                IOClass.insertLog(stringComb.cString("Month radio button selected"));
+
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -170,16 +179,21 @@ public class AppointmentMenu implements Initializable {
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
+                combString stringComb = s -> {
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    return s;
+                };
+                IOClass.insertLog(stringComb.cString("Week radio button selected"));
+
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void onActionNoFilterRBttn(ActionEvent actionEvent) {
-        errorMessage test = s -> "No" + s + "selected";
-
-        System.out.println(test.errorMessage("IDK"));
 
         ResultSet rs = null;
         if(!(DataProvider.getAllAppointments().isEmpty())){
@@ -204,8 +218,16 @@ public class AppointmentMenu implements Initializable {
                 DBAppointment appointment = new DBAppointment(appID,custID,userID,contID,title,desc,loc,type,start,end, localStart,localEnd);
                 DataProvider.addAppointment(appointment);
 
+                combString stringComb = s -> {
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    return s;
+                };
+                IOClass.insertLog(stringComb.cString("No filter radio button selected"));
+
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -213,6 +235,11 @@ public class AppointmentMenu implements Initializable {
 
     public void onActionUpdateAppBttn(ActionEvent actionEvent) throws IOException {
         try {
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Update application button hit"));
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/UpdateAppointment.fxml"));
             loader.load();
@@ -248,6 +275,12 @@ public class AppointmentMenu implements Initializable {
                     PreparedStatement psti = connection.prepareStatement(sqlQuery);
                     psti.setInt(1, appID);
                     psti.execute();
+
+                    combString stringComb = s -> {
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        return s;
+                    };
+                    IOClass.insertLog(stringComb.cString("Appointment ID: " + appID + " was removed!"));
                     DataProvider.getAllAppointments().clear();
 
 
@@ -277,10 +310,17 @@ public class AppointmentMenu implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
         public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
         stage.setScene(new Scene(scene));

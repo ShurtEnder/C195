@@ -1,5 +1,6 @@
 package controller;
 
+import Interface.combString;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -90,6 +92,11 @@ public class CustomerMenu implements Initializable {
     }
 
     public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Add customer button hit"));
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
         stage.setScene(new Scene(scene));
@@ -98,6 +105,11 @@ public class CustomerMenu implements Initializable {
 
     public void onActionUpCustBttn(ActionEvent actionEvent) throws IOException {
         try {
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Update customer button hit"));
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/UpdateCustomer.fxml"));
             loader.load();
@@ -144,6 +156,11 @@ public class CustomerMenu implements Initializable {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     if(!appThere){
                         psti2.execute();
+                        combString stringComb = s -> {
+                            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                            return s;
+                        };
+                        IOClass.insertLog(stringComb.cString("Customer ID: " + custID2 + "has been removed!"));
 
                         DataProvider.getAllCustomers().clear();
                         Statement stmt = connection.createStatement();
@@ -158,6 +175,7 @@ public class CustomerMenu implements Initializable {
                             DBCustomer dbInfo = new DBCustomer(custID,custName,custAdd,custPC, custPhone, custDID);
                             DataProvider.addCustomer(dbInfo);
 
+
                         }
                     }
                     else {
@@ -169,6 +187,8 @@ public class CustomerMenu implements Initializable {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -212,6 +232,11 @@ public class CustomerMenu implements Initializable {
 
          */
         try {
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Add appointment button hit"));
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/AddAppointment.fxml"));
             loader.load();
@@ -233,6 +258,11 @@ public class CustomerMenu implements Initializable {
     }
 
     public void onActionCustBackBttn(ActionEvent actionEvent) throws IOException {
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
         stage.setScene(new Scene(scene));

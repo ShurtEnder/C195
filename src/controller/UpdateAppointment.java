@@ -1,6 +1,7 @@
 package controller;
 
 import Interface.Counter;
+import Interface.combString;
 import com.mysql.cj.log.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.DBAppointment;
 import model.DataProvider;
+import model.IOClass;
 import model.TimeFunctions;
 
 import java.io.IOException;
@@ -291,6 +293,12 @@ public class UpdateAppointment {
                     incUpCounter.addCounter(DataProvider.getUpCounter());
                     System.out.println(DataProvider.getUpCounter());
 
+                    combString stringComb = s -> {
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        return s;
+                    };
+                    IOClass.insertLog(stringComb.cString("Appointment ID: " + appID + " has been updated!"));
+
 
                     stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
@@ -335,6 +343,12 @@ public class UpdateAppointment {
     }
 
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Appointment Menu"));
+
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
         stage.setScene(new Scene(scene));

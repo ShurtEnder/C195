@@ -1,5 +1,6 @@
 package controller;
 
+import Interface.combString;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.DBAppointment;
 import model.DataProvider;
+import model.IOClass;
 import model.TimeFunctions;
 
 import java.io.IOException;
@@ -153,6 +155,11 @@ public class ReportMenu implements Initializable {
     }
 
     public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
+        combString stringComb = s -> {
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            return s;
+        };
+        IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
         stage.setScene(new Scene(scene));

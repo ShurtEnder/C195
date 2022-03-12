@@ -1,6 +1,7 @@
 package controller;
 
 import Interface.Counter;
+import Interface.combString;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.DBCountryDID;
 import model.DataProvider;
+import model.IOClass;
+import model.TimeFunctions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
@@ -108,6 +112,12 @@ public class AddCustomer implements Initializable {
 
             psti.execute();
 
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("New customer has been added!" ));
+
             incAddCounter.addCounter(DataProvider.getNewCounter());
 
 
@@ -127,6 +137,12 @@ public class AddCustomer implements Initializable {
     }
 
         public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Customer Menu"));
+
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
         stage.setScene(new Scene(scene));
