@@ -14,9 +14,8 @@ import model.TimeFunctions;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
@@ -35,6 +34,7 @@ public class LoginPage implements Initializable {
     public Button loginBttnTxt;
     public Label zoneIDLbl;
     public static int userID;
+    private String sqlQuery = "SELECT Appointment_ID, Start FROM client_schedule.appointments WHERE Start BETWEEN ? AND ? AND USER_ID = ?";
 
 
     Stage stage;
@@ -175,8 +175,10 @@ public class LoginPage implements Initializable {
         String message = "No user or password found!";
 
         boolean userFound = false;
+        PreparedStatement psti = connection.prepareStatement(sqlQuery);
         ResultSet rs = null;
         Statement stmt = connection.createStatement();
+
         rs = stmt.executeQuery("SELECT * FROM client_schedule.users");
         while(rs.next()) {
             int user_ID = rs.getInt(1);
@@ -192,9 +194,41 @@ public class LoginPage implements Initializable {
 
 
             if(usernameDB.equals(userNameTxt.getText()) && passwordDB.equals(passwordTxt.getText())){
+                String printAppID = null;
+                String printTime = null;
                 userFound = true;
                 userID = user_ID;
                 IOClass.insertLog(stringComb.cString("Login attempt success!"));
+
+                Timestamp.valueOf(TimeFunctions.getLoctoUTC(LocalDateTime.now()).toLocalDateTime().minusMinutes(1));
+
+                psti.setString(1, String.valueOf(Timestamp.valueOf(TimeFunctions.getLoctoUTC(LocalDateTime.now()).toLocalDateTime().minusMinutes(1))));
+                psti.setString(2,String.valueOf(Timestamp.valueOf(TimeFunctions.getLoctoUTC(LocalDateTime.now()).toLocalDateTime().plusMinutes(16))));
+                psti.setInt(3,user_ID);
+
+                rs = psti.executeQuery();
+                while(rs.next()) {
+                    System.out.println("Query exe");
+                    printAppID = rs.getString(1);
+                    printTime = rs.getString(2);
+                }
+
+                if(!(printAppID == null)) {
+                    printTime = TimeFunctions.formDTF(TimeFunctions.getUTCtoLoc(Timestamp.valueOf(printTime).toLocalDateTime()).toLocalDateTime());
+                    String okStr = rb.getString("OK");
+                    ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
+                    Alert alert = new Alert(Alert.AlertType.NONE, "There is an appointment within 15 minutes! \nAppointment ID: " + printAppID + "\nDate/Time: " + printTime, ok);
+                    alert.setTitle("");
+                    alert.showAndWait();
+                }
+                else {
+                    String okStr = rb.getString("OK");
+                    ButtonType ok = new ButtonType(okStr, ButtonBar.ButtonData.OK_DONE);
+                    Alert alert = new Alert(Alert.AlertType.NONE, "There are no upcoming appointments!", ok);
+                    alert.setTitle("");
+                    alert.showAndWait();
+                }
+
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/view/StartMenu.fxml"));
                 stage.setScene(new Scene(scene));
