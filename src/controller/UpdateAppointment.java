@@ -151,8 +151,13 @@ public class UpdateAppointment {
             while (rs.next()){
                 contID = rs.getInt(1);
             }
-
-            if(!(busHours)){
+            if(title.isEmpty() || desc.isEmpty() || loc.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("Text fields are empty!");
+                alert.showAndWait();
+            }
+            else if(!(busHours)){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning!");
                 alert.setContentText("Selected date/times are not within business hours!");
@@ -250,7 +255,10 @@ public class UpdateAppointment {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setContentText("Enter/select valid values in all fields!");
+            alert.showAndWait();
         } catch (NumberFormatException Ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error!");

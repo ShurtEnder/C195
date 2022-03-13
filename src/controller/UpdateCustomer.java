@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -130,35 +131,45 @@ public class UpdateCustomer{
             String custPhone = upCustPNumberTxt.getText();
             String custDID = String.valueOf(upCustFLDCombo.getSelectionModel().getSelectedItem());
 
-            psti2.setString(1, String.valueOf(custDID));
-            rs = psti2.executeQuery();
-            int custDIDo = 0;
-            while (rs.next()) {
-                custDIDo = rs.getInt(1);
+            if(custName.isEmpty() || custAdd.isEmpty() || custPC.isEmpty() || custPhone.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setContentText("Text fields are empty!");
+                alert.showAndWait();
             }
+            else{
+                psti2.setString(1, String.valueOf(custDID));
+                rs = psti2.executeQuery();
+                int custDIDo = 0;
+                while (rs.next()) {
+                    custDIDo = rs.getInt(1);
+                }
+                psti.setString(1, custName);
+                psti.setString(2, custAdd);
+                psti.setString(3, custPC);
+                psti.setString(4, custPhone);
+                psti.setInt(5, custDIDo);
+                psti.setInt(6,custID);
+                psti.execute();
+                //Lambda Expression
+                combString stringComb = s -> {
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    return s;
+                };
+                IOClass.insertLog(stringComb.cString("Customer ID: " + custID + " has been updated!"));
+                //Lambda Expression
+                incUpCounter.addCounter(DataProvider.getUpCounter());
 
-            psti.setString(1, custName);
-            psti.setString(2, custAdd);
-            psti.setString(3, custPC);
-            psti.setString(4, custPhone);
-            psti.setInt(5, custDIDo);
-            psti.setInt(6,custID);
-            psti.execute();
-            //Lambda Expression
-            combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
-                return s;
-            };
-            IOClass.insertLog(stringComb.cString("Customer ID: " + custID + " has been updated!"));
-            //Lambda Expression
-            incUpCounter.addCounter(DataProvider.getUpCounter());
-
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
+                stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setContentText("Enter/select valid values in all fields!");
+            alert.showAndWait();
         }
     }
 

@@ -68,3 +68,232 @@
 2022-03-12T18:49:12.723154200Z User 1: Appointment menu button hit!
 2022-03-12T18:49:18.561537600Z User 1: Update application button hit
 2022-03-12T18:49:23.330482100Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-12T22:07:09.807938500Z User 0: Login attempt failed
+2022-03-12T22:07:16.135472800Z User 1: Login attempt success !
+2022-03-12T22:07:30.410566800Z User 0: Login attempt failed
+2022-03-12T22:07:32.664692700Z User 1: Login attempt success !
+2022-03-12T22:08:02.173273300Z User 1: Login attempt success !
+2022-03-12T22:08:20.661983900Z User 1: Login attempt success !
+2022-03-12T22:18:20.993152Z User 1: Login attempt success !
+2022-03-12T22:18:24.618931300Z User 1: Appointment menu button hit!
+2022-03-12T22:18:27.065840700Z User 1: Update application button hit
+2022-03-12T22:18:41.253524600Z User 1: Appointment ID: 43 has been updated!
+2022-03-12T22:18:42.803922500Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:18:43.558608700Z User 1: Logout button hit!
+2022-03-12T22:18:45.190094400Z User 1: Login attempt success !
+2022-03-12T22:19:03.980212600Z User 1: Login attempt success !
+2022-03-12T22:19:33.894045100Z User 1: Login attempt success !
+2022-03-12T22:19:59.721069900Z User 1: Logout button hit!
+2022-03-12T22:20:45.179349700Z User 1: Login attempt success !
+2022-03-12T22:21:07.586895200Z User 1: Logout button hit!
+2022-03-12T22:21:10.321445Z User 0: Login attempt failed
+2022-03-12T22:41:54.149048900Z User 1: Login attempt success !
+2022-03-12T22:42:00.366325800Z User 1: Customer menu button hit!
+2022-03-12T22:44:29.950413600Z User 1: Login attempt success !
+2022-03-12T22:44:32.209218600Z User 1: Appointment menu button hit!
+2022-03-12T22:44:36.471803Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:44:37.202466500Z User 1: Customer menu button hit!
+2022-03-12T22:44:38.872424300Z User 1: Add appointment button hit
+2022-03-12T22:46:00.320935500Z User 1: Login attempt success !
+2022-03-12T22:46:02.148130800Z User 1: Customer menu button hit!
+2022-03-12T22:46:05.342034900Z User 1: Add appointment button hit
+2022-03-12T22:47:00.686165Z User 1: Login attempt success !
+2022-03-12T22:47:02.318067Z User 1: Customer menu button hit!
+2022-03-12T22:47:03.770031200Z User 1: Add appointment button hit
+2022-03-12T22:47:11.863661Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T22:47:13.154836800Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:47:24.686676700Z User 1: Login attempt success !
+2022-03-12T22:47:26.078061Z User 1: Customer menu button hit!
+2022-03-12T22:47:27.416639600Z User 1: Update customer button hit
+2022-03-12T22:47:29.104671400Z User 1: Update customer button hit
+2022-03-12T22:47:30.024505200Z User 1: Cancel button hit, going back to customer Menu
+2022-03-12T22:47:30.690110400Z User 1: Add customer button hit
+2022-03-12T22:47:31.530876700Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T22:47:33.996633200Z User 1: Add appointment button hit
+2022-03-12T22:47:35.203732600Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T22:50:13.206841500Z User 1: Login attempt success !
+2022-03-12T22:50:14.779273Z User 1: Customer menu button hit!
+2022-03-12T22:50:16.936779200Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:50:17.739068700Z User 1: Appointment menu button hit!
+2022-03-12T22:50:30.059568400Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:50:31.108523800Z User 1: Customer menu button hit!
+2022-03-12T22:50:33.704882800Z User 1: Customer ID: 17has been removed!
+2022-03-12T22:50:34.786866600Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:50:35.543706900Z User 1: Appointment menu button hit!
+2022-03-12T22:50:37.334278100Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:51:17.936863500Z User 1: Login attempt success !
+2022-03-12T22:51:19.444236Z User 1: Customer menu button hit!
+2022-03-12T22:51:20.839007400Z User 1: Add appointment button hit
+2022-03-12T22:51:22.485905400Z User 1: Add appointment button hit
+2022-03-12T22:51:27.375404600Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T22:51:28.359299Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:51:29.138007900Z User 1: Appointment menu button hit!
+2022-03-12T22:51:31.020067900Z User 1: Update application button hit
+2022-03-12T22:51:33.282156400Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-12T22:51:35.730382500Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:51:39.214790200Z User 1: Customer menu button hit!
+2022-03-12T22:51:40.580474300Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:51:41.263096500Z User 1: Appointment menu button hit!
+2022-03-12T22:51:47.661824700Z User 1: Update application button hit
+2022-03-12T22:51:48.549156800Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-12T22:51:51.966181100Z User 1: Update application button hit
+2022-03-12T22:54:10.308669600Z User 1: Login attempt success !
+2022-03-12T22:54:11.794884200Z User 1: Customer menu button hit!
+2022-03-12T22:54:13.317483100Z User 1: Add customer button hit
+2022-03-12T22:54:14.119211500Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T22:54:14.705797800Z User 1: Update customer button hit
+2022-03-12T22:54:17.224103600Z User 1: Update customer button hit
+2022-03-12T22:54:18.117506600Z User 1: Cancel button hit, going back to customer Menu
+2022-03-12T22:54:20.066168600Z User 1: Add appointment button hit
+2022-03-12T22:54:20.910936Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-12T22:54:21.843290400Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:54:22.550932500Z User 1: Appointment menu button hit!
+2022-03-12T22:54:24.140377800Z User 1: Month radio button selected
+2022-03-12T22:54:24.141378500Z User 1: Month radio button selected
+2022-03-12T22:54:25.647747100Z User 1: No filter radio button selected
+2022-03-12T22:54:25.648748200Z User 1: No filter radio button selected
+2022-03-12T22:54:25.648748200Z User 1: No filter radio button selected
+2022-03-12T22:54:25.649749800Z User 1: No filter radio button selected
+2022-03-12T22:54:28.444202Z User 1: Update application button hit
+2022-03-12T22:54:29.549727600Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-12T22:54:33.179026500Z User 1: Appointment ID: 41 was removed!
+2022-03-12T22:54:35.369716300Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:54:36.109969100Z User 1: Report menu button hit!
+2022-03-12T22:54:43.625822900Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:54:47.829533400Z User 1: Customer menu button hit!
+2022-03-12T22:54:48.640270900Z User 1: Add customer button hit
+2022-03-12T22:54:54.938738100Z User 1: New customer has been added!
+2022-03-12T22:55:02.531728400Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:55:03.175315900Z User 1: Report menu button hit!
+2022-03-12T22:55:07.243016200Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:55:08.188202100Z User 1: Customer menu button hit!
+2022-03-12T22:55:09.648381Z User 1: Update customer button hit
+2022-03-12T22:55:10.356774900Z User 1: Customer ID: 18 has been updated!
+2022-03-12T22:55:10.951315800Z User 1: Back button hit, going back to Start Menu
+2022-03-12T22:55:12.009279400Z User 1: Report menu button hit!
+2022-03-12T22:55:13.264420200Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:19:29.414322100Z User 1: Login attempt success !
+2022-03-13T14:19:32.147156400Z User 1: Customer menu button hit!
+2022-03-13T14:19:35.056986400Z User 1: Add customer button hit
+2022-03-13T14:20:55.860587200Z User 1: Login attempt success !
+2022-03-13T14:20:57.345450100Z User 1: Customer menu button hit!
+2022-03-13T14:20:58.430603700Z User 1: Add customer button hit
+2022-03-13T14:21:04.362241200Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:21:47.878307300Z User 1: Login attempt success !
+2022-03-13T14:21:49.485298200Z User 1: Customer menu button hit!
+2022-03-13T14:21:50.341076200Z User 1: Add customer button hit
+2022-03-13T14:25:21.463778400Z User 1: Login attempt success !
+2022-03-13T14:25:23.438309300Z User 1: Customer menu button hit!
+2022-03-13T14:25:25.485170700Z User 1: Add customer button hit
+2022-03-13T14:25:28.000458Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-13T14:25:29.597421600Z User 1: Update customer button hit
+2022-03-13T14:25:30.775965600Z User 1: Customer ID: 18 has been updated!
+2022-03-13T14:31:51.087378100Z User 1: Login attempt success !
+2022-03-13T14:31:52.839972200Z User 1: Customer menu button hit!
+2022-03-13T14:31:54.274276800Z User 1: Add customer button hit
+2022-03-13T14:32:01.749824800Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-13T14:32:03.581490100Z User 1: Update customer button hit
+2022-03-13T14:32:05.047823400Z User 1: Cancel button hit, going back to customer Menu
+2022-03-13T14:32:06.711871900Z User 1: Add appointment button hit
+2022-03-13T14:32:12.041814500Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:32:12.874571300Z User 1: Customer menu button hit!
+2022-03-13T14:32:15.730168400Z User 1: Update customer button hit
+2022-03-13T14:32:20.422768Z User 1: Add appointment button hit
+2022-03-13T14:35:06.523433600Z User 1: Login attempt success !
+2022-03-13T14:35:07.920703900Z User 1: Customer menu button hit!
+2022-03-13T14:35:14.272563100Z User 1: Add appointment button hit
+2022-03-13T14:36:18.037862800Z User 1: New appointment has been added!
+2022-03-13T14:36:21.656826800Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:36:22.791869900Z User 1: Appointment menu button hit!
+2022-03-13T14:36:24.199661400Z User 1: Month radio button selected
+2022-03-13T14:36:30.541926300Z User 1: No filter radio button selected
+2022-03-13T14:36:30.542927Z User 1: No filter radio button selected
+2022-03-13T14:36:30.543929Z User 1: No filter radio button selected
+2022-03-13T14:36:30.544929200Z User 1: No filter radio button selected
+2022-03-13T14:36:34.563648900Z User 1: Month radio button selected
+2022-03-13T14:36:36.307218200Z User 1: Month radio button selected
+2022-03-13T14:36:37.203556500Z User 1: No filter radio button selected
+2022-03-13T14:36:37.204556200Z User 1: No filter radio button selected
+2022-03-13T14:36:37.205556900Z User 1: No filter radio button selected
+2022-03-13T14:36:37.206558Z User 1: No filter radio button selected
+2022-03-13T14:36:38.132400900Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:36:39.128305Z User 1: Appointment menu button hit!
+2022-03-13T14:36:44.238463800Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:36:44.872431Z User 1: Customer menu button hit!
+2022-03-13T14:36:47.401786400Z User 1: Add customer button hit
+2022-03-13T14:36:49.358589800Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-13T14:36:50.118279600Z User 1: Update customer button hit
+2022-03-13T14:36:52.424377600Z User 1: Update customer button hit
+2022-03-13T14:36:59.543439Z User 1: Customer ID: 18 has been updated!
+2022-03-13T14:37:17.519398100Z User 1: Add customer button hit
+2022-03-13T14:37:21.452327700Z User 1: New customer has been added!
+2022-03-13T14:37:31.617236900Z User 1: Add appointment button hit
+2022-03-13T14:38:20.763274Z User 1: Cancel button hit, going back to Customer Menu
+2022-03-13T14:39:05.343384100Z User 1: Add appointment button hit
+2022-03-13T14:39:35.714477500Z User 1: New appointment has been added!
+2022-03-13T14:39:51.981185400Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:39:53.154896900Z User 1: Appointment menu button hit!
+2022-03-13T14:39:56.219195900Z User 1: Month radio button selected
+2022-03-13T14:39:57.426684700Z User 1: No filter radio button selected
+2022-03-13T14:39:57.427686300Z User 1: No filter radio button selected
+2022-03-13T14:39:57.428687Z User 1: No filter radio button selected
+2022-03-13T14:39:57.428687Z User 1: No filter radio button selected
+2022-03-13T14:39:57.429687600Z User 1: No filter radio button selected
+2022-03-13T14:40:15.363747900Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:40:16.301389400Z User 1: Appointment menu button hit!
+2022-03-13T14:40:24.595448200Z User 1: Appointment ID: 45 was removed!
+2022-03-13T14:40:25.588458700Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:40:27.089507100Z User 1: Appointment menu button hit!
+2022-03-13T14:40:27.960573300Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:40:28.648589100Z User 1: Customer menu button hit!
+2022-03-13T14:40:31.361625600Z User 1: Customer ID: 18has been removed!
+2022-03-13T14:40:33.913591Z User 1: Customer ID: 25has been removed!
+2022-03-13T14:40:46.475576Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:40:49.380751100Z User 1: Report menu button hit!
+2022-03-13T14:41:04.278584300Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:41:05.144703200Z User 1: Customer menu button hit!
+2022-03-13T14:41:06.275578Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:44:20.722462600Z User 1: Login attempt success !
+2022-03-13T14:44:22.802055300Z User 1: Customer menu button hit!
+2022-03-13T14:44:26.022930Z User 1: Add customer button hit
+2022-03-13T14:44:52.356848200Z User 1: New customer has been added!
+2022-03-13T14:46:57.596997900Z User 1: Login attempt success !
+2022-03-13T14:47:02.038134700Z User 1: Customer menu button hit!
+2022-03-13T14:47:03.789727600Z User 1: Update customer button hit
+2022-03-13T14:47:15.005661200Z User 1: Cancel button hit, going back to customer Menu
+2022-03-13T14:47:16.796290600Z User 1: Update customer button hit
+2022-03-13T14:47:17.534961200Z User 1: Customer ID: 26 has been updated!
+2022-03-13T14:51:06.718942400Z User 1: Login attempt success !
+2022-03-13T14:51:08.752201500Z User 1: Customer menu button hit!
+2022-03-13T14:51:11.478754600Z User 1: Add appointment button hit
+2022-03-13T14:51:37.667588700Z User 1: New appointment has been added!
+2022-03-13T14:51:49.716087100Z User 2: Login attempt success !
+2022-03-13T14:51:51.430653700Z User 2: Customer menu button hit!
+2022-03-13T14:51:53.833837100Z User 2: Add appointment button hit
+2022-03-13T14:53:27.865924900Z User 1: Login attempt success !
+2022-03-13T14:53:29.942440800Z User 1: Customer menu button hit!
+2022-03-13T14:53:31.351773300Z User 1: Add appointment button hit
+2022-03-13T14:54:00.539526600Z User 1: New appointment has been added!
+2022-03-13T14:54:45.073779300Z User 1: Login attempt success !
+2022-03-13T14:54:46.553516100Z User 1: Customer menu button hit!
+2022-03-13T14:54:48.246055300Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:54:49.024762200Z User 1: Appointment menu button hit!
+2022-03-13T14:54:52.784693200Z User 1: Update application button hit
+2022-03-13T14:55:03.426766500Z User 1: Appointment ID: 46 has been updated!
+2022-03-13T14:55:09.698874600Z User 1: No filter radio button selected
+2022-03-13T14:55:09.699875600Z User 1: No filter radio button selected
+2022-03-13T14:55:09.700877200Z User 1: No filter radio button selected
+2022-03-13T14:55:09.700877200Z User 1: No filter radio button selected
+2022-03-13T14:55:09.701875500Z User 1: No filter radio button selected
+2022-03-13T14:55:09.702877100Z User 1: No filter radio button selected
+2022-03-13T14:55:19.777857400Z User 1: Month radio button selected
+2022-03-13T14:55:19.778859Z User 1: Month radio button selected
+2022-03-13T14:55:39.434705700Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:55:40.653241400Z User 1: Appointment menu button hit!
+2022-03-13T14:55:52.820267700Z User 1: No filter radio button selected
+2022-03-13T14:55:52.821268800Z User 1: No filter radio button selected
+2022-03-13T14:55:52.821268800Z User 1: No filter radio button selected
+2022-03-13T14:55:52.822269900Z User 1: No filter radio button selected
+2022-03-13T14:55:52.823272400Z User 1: No filter radio button selected
+2022-03-13T14:55:52.824271700Z User 1: No filter radio button selected
+2022-03-13T14:55:55.409621700Z User 1: Back button hit, going back to Start Menu
