@@ -297,3 +297,100 @@
 2022-03-13T14:55:52.823272400Z User 1: No filter radio button selected
 2022-03-13T14:55:52.824271700Z User 1: No filter radio button selected
 2022-03-13T14:55:55.409621700Z User 1: Back button hit, going back to Start Menu
+2022-03-13T14:59:26.676651900Z User 1: Login attempt success !
+2022-03-13T14:59:28.692494200Z User 1: Appointment menu button hit!
+2022-03-13T14:59:32.914377Z User 1: Update application button hit
+2022-03-13T14:59:38.502988100Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-13T14:59:40.212366600Z User 1: Update application button hit
+2022-03-13T14:59:48.887032Z User 1: Cancel button hit, going back to Appointment Menu
+2022-03-13T14:59:58.669702700Z User 1: Month radio button selected
+2022-03-13T14:59:58.671703500Z User 1: Month radio button selected
+2022-03-13T15:00:09.771742500Z User 1: Back button hit, going back to Start Menu
+2022-03-13T15:04:30.771959700Z User 1: Login attempt success !
+2022-03-13T15:04:32.972475300Z User 1: Appointment menu button hit!
+2022-03-13T15:04:49.247672800Z User 1: Login attempt success !
+2022-03-13T15:04:50.986266300Z User 1: Appointment menu button hit!
+2022-03-13T15:07:21.927552200Z User 1: Login attempt success !
+2022-03-13T15:07:23.391883700Z User 1: Customer menu button hit!
+2022-03-13T15:07:24.386788600Z User 1: Back button hit, going back to Start Menu
+2022-03-13T15:07:24.929282200Z User 1: Appointment menu button hit!
+2022-03-13T15:07:26.931102200Z User 1: Month radio button selected
+2022-03-13T15:07:26.932102800Z User 1: Month radio button selected
+2022-03-13T15:07:26.933105300Z User 1: Month radio button selected
+2022-03-13T15:07:46.855795500Z User 1: No filter radio button selected
+2022-03-13T15:07:46.856796600Z User 1: No filter radio button selected
+2022-03-13T15:07:46.857798700Z User 1: No filter radio button selected
+2022-03-13T15:07:46.858799400Z User 1: No filter radio button selected
+2022-03-13T15:07:46.858799400Z User 1: No filter radio button selected
+2022-03-13T15:07:46.859800Z User 1: No filter radio button selected
+2022-03-13T15:07:49.655173400Z User 1: Month radio button selected
+2022-03-13T15:07:49.656173500Z User 1: Month radio button selected
+2022-03-13T15:07:49.657173700Z User 1: Month radio button selected
+2022-03-13T15:13:45.837770100Z User 1: Login attempt success !
+2022-03-13T15:13:50.677169400Z User 1: Appointment menu button hit!
+2022-03-13T15:14:17.770107Z User 1: Login attempt success !
+2022-03-13T15:14:19.044777300Z User 1: Appointment menu button hit!
+2022-03-13T15:15:43.113912700Z User 1: Login attempt success !
+2022-03-13T15:15:44.182667600Z User 1: Appointment menu button hit!
+2022-03-13T15:26:03.185602400Z User 1: Login attempt success !
+2022-03-13T15:26:04.252572700Z User 1: Appointment menu button hit!
+2022-03-13T15:33:59.230855Z User 1: Login attempt success !
+2022-03-13T15:34:01.307285300Z User 1: Customer menu button hit!
+2022-03-13T15:34:04.012789800Z User 1: Add appointment button hit
+2022-03-13T15:34:15.998394100Z User 1: New appointment has been added!
+2022-03-13T15:36:24.728534Z User 1: Login attempt success !
+2022-03-13T15:36:26.365023300Z User 1: Appointment menu button hit!
+2022-03-13T15:36:27.632174800Z User 1: Month radio button selected
+2022-03-13T15:36:27.633174Z User 1: Month radio button selected
+2022-03-13T15:36:27.634176100Z User 1: Month radio button selected
+2022-03-13T15:36:27.634176100Z User 1: Month radio button selected
+2022-03-13T15:36:28.477943400Z User 1: Week radio button selected
+2022-03-13T15:36:28.478944Z User 1: Week radio button selected
+2022-03-13T15:37:24.909026400Z User 1: Login attempt success !
+2022-03-13T15:37:26.282275100Z User 1: Appointment menu button hit!
+2022-03-13T15:37:28.441972400Z User 1: Back button hit, going back to Start Menu
+2022-03-13T15:37:29.380972200Z User 1: Appointment menu button hit!
+2022-03-13T15:37:31.474876100Z User 1: Month radio button selected
+2022-03-13T15:37:31.475878200Z User 1: Month radio button selected
+2022-03-13T15:37:31.475878200Z User 1: Month radio button selected
+2022-03-13T15:37:31.476878800Z User 1: Month radio button selected
+2022-03-13T15:37:32.340663800Z User 1: Week radio button selected
+2022-03-13T15:37:32.341664400Z User 1: Week radio button selected
+2022-03-13T15:37:33.335568700Z User 1: Month radio button selected
+2022-03-13T15:37:33.335568700Z User 1: Month radio button selected
+2022-03-13T15:37:33.336567900Z User 1: Month radio button selected
+2022-03-13T15:37:33.337568500Z User 1: Month radio button selected
+2022-03-13T15:37:33.698897600Z User 1: No filter radio button selected
+2022-03-13T15:37:33.700900300Z User 1: No filter radio button selected
+2022-03-13T15:37:33.700900300Z User 1: No filter radio button selected
+2022-03-13T15:37:33.701901400Z User 1: No filter radio button selected
+2022-03-13T15:37:33.702902500Z User 1: No filter radio button selected
+2022-03-13T15:37:33.703903100Z User 1: No filter radio button selected
+2022-03-13T15:37:33.703903100Z User 1: No filter radio button selected
+2022-03-13T15:37:50.888507500Z User 1: Update application button hit
+2022-03-13T15:38:01.969520500Z User 1: Appointment ID: 48 has been updated!
+2022-03-13T15:38:04.068429600Z User 1: Week radio button selected
+2022-03-13T15:38:04.958238300Z User 1: Month radio button selected
+2022-03-13T15:38:04.958238300Z User 1: Month radio button selected
+2022-03-13T15:38:04.959239500Z User 1: Month radio button selected
+2022-03-13T15:38:09.125669Z User 1: No filter radio button selected
+2022-03-13T15:38:09.126670200Z User 1: No filter radio button selected
+2022-03-13T15:38:09.126670200Z User 1: No filter radio button selected
+2022-03-13T15:38:09.127671300Z User 1: No filter radio button selected
+2022-03-13T15:38:09.127671300Z User 1: No filter radio button selected
+2022-03-13T15:38:09.128672400Z User 1: No filter radio button selected
+2022-03-13T15:38:09.128672400Z User 1: No filter radio button selected
+2022-03-13T15:38:21.521900Z User 1: Update application button hit
+2022-03-13T15:38:28.661783700Z User 1: Appointment ID: 40 has been updated!
+2022-03-13T15:38:30.604551400Z User 1: Month radio button selected
+2022-03-13T15:38:30.605551100Z User 1: Month radio button selected
+2022-03-13T15:38:31.979813700Z User 1: Week radio button selected
+2022-03-13T15:38:33.403668100Z User 1: Month radio button selected
+2022-03-13T15:38:33.404667800Z User 1: Month radio button selected
+2022-03-13T15:38:34.342531700Z User 1: No filter radio button selected
+2022-03-13T15:38:34.343531900Z User 1: No filter radio button selected
+2022-03-13T15:38:34.343531900Z User 1: No filter radio button selected
+2022-03-13T15:38:34.344534400Z User 1: No filter radio button selected
+2022-03-13T15:38:34.344534400Z User 1: No filter radio button selected
+2022-03-13T15:38:34.345536400Z User 1: No filter radio button selected
+2022-03-13T15:38:34.346534300Z User 1: No filter radio button selected

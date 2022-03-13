@@ -32,8 +32,9 @@ public class AppointmentMenu implements Initializable {
     public TableView appVAppTableView;
     public RadioButton noFilterToggleBttn;
     private String sqlQuery = "DELETE FROM client_schedule.appointments WHERE Appointment_ID = ?";
-    private String sqlQuery2 = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM client_schedule.appointments WHERE Start BETWEEN ? AND ?";
-    private LocalDate localDate, localDateWStart, localDateWEnd,localDateMStart, localDateMEnd;
+    private String sqlQuery2 = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM client_schedule.appointments WHERE WEEK(Start) = WEEK(?)";
+    private String sqlQuery3 = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM client_schedule.appointments WHERE MONTH(Start) = ?";
+    private LocalDate localDate;
 
     Stage stage;
     Parent scene;
@@ -80,10 +81,6 @@ public class AppointmentMenu implements Initializable {
         }
 
         localDate = LocalDate.now();
-        localDateWEnd = localDate.plusDays(6-localDate.get(ChronoField. DAY_OF_WEEK));
-        localDateWStart = localDateWEnd.minusDays(6);
-        localDateMStart = localDate.withDayOfMonth(1);
-        localDateMEnd = localDate.withDayOfMonth(localDate.lengthOfMonth());
     }
 
     public void onActionMonthRBttn(ActionEvent actionEvent) {
@@ -92,9 +89,10 @@ public class AppointmentMenu implements Initializable {
             DataProvider.getAllAppointments().clear();
         }
         try {
-            PreparedStatement psti = connection.prepareStatement(sqlQuery2);
-            psti.setString(1, String.valueOf(localDateMStart));
-            psti.setString(2, String.valueOf(localDateMEnd));
+            PreparedStatement psti = connection.prepareStatement(sqlQuery3);
+            psti.setString(1, String.valueOf(localDate.getMonthValue()));
+//            psti.setString(2, String.valueOf(localDateMEnd));
+//            psti.setString(3, String.valueOf(localDateMEnd));
             rs = psti.executeQuery();
             while(rs.next()){
                 int appID = rs.getInt(1);
@@ -132,8 +130,7 @@ public class AppointmentMenu implements Initializable {
         }
         try {
             PreparedStatement psti = connection.prepareStatement(sqlQuery2);
-            psti.setString(1, String.valueOf(localDateWStart));
-            psti.setString(2, String.valueOf(localDateWEnd));
+            psti.setString(1, String.valueOf(localDate));
             rs = psti.executeQuery();
             while(rs.next()){
                 int appID = rs.getInt(1);
