@@ -26,6 +26,10 @@ import java.util.ResourceBundle;
 import static DBA.JDBC.connection;
 import static java.util.ResourceBundle.getBundle;
 
+/**
+ * Login Page Class.
+ * @author Rene Gomez Student ID: 001467443
+ */
 public class LoginPage implements Initializable {
 
     public Label loginPageLbl,userNameLbl,passwordLbl,zoneIDLbl;
@@ -38,11 +42,68 @@ public class LoginPage implements Initializable {
     Stage stage;
     Parent scene;
 
+    /**
+     * Initialize.
+     * On the start of the program, all the labels/text are translated and the zone ID is set.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        DataProvider.setNewCounter(0);
+        DataProvider.setUpCounter(0);
+        userID = 0;
+        ZoneId zoneID = ZoneId.systemDefault();
+        String strZoneID = zoneID.getId();
+        zoneIDLbl.setText(strZoneID);
+        String loginPage =loginPageLbl.getText();
+        String userName = userNameLbl.getText();
+        String password = passwordLbl.getText();
+        String button = loginBttnTxt.getText();
+        String exit = exitBttnTxt.getText();
+
+
+        if(Locale.getDefault().getLanguage().equals("en")) {
+            loginPageLbl.setText(sentenceTrans(loginPage));
+            userNameLbl.setText(sentenceTrans(userName));
+            passwordLbl.setText(sentenceTrans(password));
+            loginBttnTxt.setText(sentenceTrans(button));
+            exitBttnTxt.setText(sentenceTrans(exit));
+
+        }
+        else if(Locale.getDefault().getLanguage().equals("es")){
+            loginPageLbl.setText(sentenceTrans(loginPage));
+            userNameLbl.setText(sentenceTrans(userName));
+            passwordLbl.setText(sentenceTrans(password));
+            loginBttnTxt.setText(sentenceTrans(button));
+            exitBttnTxt.setText(sentenceTrans(exit));
+        }
+        else if (Locale.getDefault().getLanguage().equals("fr")){
+            loginPageLbl.setText(sentenceTrans(loginPage));
+            userNameLbl.setText(sentenceTrans(userName));
+            passwordLbl.setText(sentenceTrans(password));
+            loginBttnTxt.setText(sentenceTrans(button));
+            exitBttnTxt.setText(sentenceTrans(exit));
+        }
+
+    }
+
+
+    /**
+     * String List.
+     * Separates a string into a char list.
+     * @param str the string is set to
+     * @return The char list.
+     */
     public String[] stringList(String str){
        String[] splited = str.split("\\s+");
        return splited;
     }
-    
+
+    /**
+     * String Combine.
+     * Combines a char list together.
+     * @param strL the string list is set to
+     * @return The combined string
+     */
     public String stringComb(String[] strL){
         String sent = "";
         for(int i=0; i < strL.length; i++ ){
@@ -56,6 +117,13 @@ public class LoginPage implements Initializable {
         sent.trim();
         return sent;
     }
+
+    /**
+     * Is Upper Case.
+     * Checks to see if a char is upcase or not.
+     * @param s the string is set to
+     * @return True or false
+     */
     public boolean isUpperCase(String s) {
         if (!Character.isUpperCase(s.charAt(0))) {
             return false;
@@ -63,6 +131,12 @@ public class LoginPage implements Initializable {
         return true;
     }
 
+    /**
+     * Sentence Translator.
+     * Translates a sentence using the resource bundle.
+     * @param sentence the sentence is set to
+     * @return The translated sentence.
+     */
     public String sentenceTrans(String sentence){
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
         String lowerCase = "";
@@ -92,38 +166,13 @@ public class LoginPage implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        DataProvider.setNewCounter(0);
-        DataProvider.setUpCounter(0);
-        userID = 0;
-        ZoneId zoneID = ZoneId.systemDefault();
-        String strZoneID = zoneID.getId();
-        zoneIDLbl.setText(strZoneID);
-        String loginPage =loginPageLbl.getText();
-        String userName = userNameLbl.getText();
-        String password = passwordLbl.getText();
-        String button = loginBttnTxt.getText();
-        String exit = exitBttnTxt.getText();
-
-
-        if(Locale.getDefault().getLanguage().equals("en")) {
-            loginPageLbl.setText(sentenceTrans(loginPage));
-            userNameLbl.setText(sentenceTrans(userName));
-            passwordLbl.setText(sentenceTrans(password));
-            loginBttnTxt.setText(sentenceTrans(button));
-            exitBttnTxt.setText(sentenceTrans(exit));
-
-        }
-        else if(Locale.getDefault().getLanguage().equals("es")){
-
-        }
-        else if (Locale.getDefault().getLanguage().equals("fr")){
-
-        }
-
-    }
-
+    /**
+     * Login Button.
+     * First checks if user name an password are correct then changes stage to the Start Menu FXML.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void onActionLoginBttn(ActionEvent actionEvent) throws SQLException, IOException {
         //Lambda Expression
         combString stringComb = s -> {
@@ -216,6 +265,11 @@ public class LoginPage implements Initializable {
 
     }
 
+    /**
+     * Exit Button.
+     * Closes the program, first asking if the user confirms they want to exit.
+     * @param actionEvent on ExitButton click
+     */
     public void onActionExit(ActionEvent actionEvent) {
         String exitMsg = sentenceTrans("Are you sure you want to exit ?");
         String okStr = sentenceTrans("OK");

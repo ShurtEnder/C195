@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
 
@@ -24,10 +21,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
+/**
+ * Update Customer Class.
+ * @author Rene Gomez Student ID: 001467443
+ */
 public class UpdateCustomer{
     public TextField upCustIDTxt,upCustNameTxt,upCustAddressTxt,upCustPCodeTxt,upCustPNumberTxt;
     public ComboBox upCustCountyCombo,upCustFLDCombo;
@@ -38,6 +40,11 @@ public class UpdateCustomer{
     Stage stage;
     Parent scene;
 
+    /**
+     * Send Customer.
+     * Allows data transfer from the Customer Menu so that the selected customer is shown. It also sets the appropriate values to the labels/combo boxes.
+     * @param cust the customer is set to
+     */
     public void sendCust(DBCustomer cust){
         upCustIDTxt.setText(String.valueOf(cust.getCustID()));
         upCustNameTxt.setText(String.valueOf(cust.getCustName()));
@@ -87,6 +94,11 @@ public class UpdateCustomer{
         }
     }
 
+    /**
+     * Customer Country Combo.
+     * On selection of a country, the customer First Level Division combo box is populated.
+     * @param actionEvent on select country
+     */
     public void onActionUpCustCountyCombo(ActionEvent actionEvent) {
         int countryID = 0;
         ObservableList list = FXCollections.observableArrayList();
@@ -111,6 +123,18 @@ public class UpdateCustomer{
 
     }
 
+    /**
+     * Customer Update Button.
+     * Attempts to save the updated customer and change stage back to the Customer Menu FXML. Also checks for logical errors, if any are found it displays an error/warning dialog box.
+     * @param actionEvent UpCustSaveBttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSIONS
+     * </b></p>
+     * <p><b>
+     *     The first expression combines a string and inserts it into the log. The second expression increase the Update Counter.
+     * </b></p>
+     */
     public void onActionUpCustSaveBttn(ActionEvent actionEvent) throws IOException {
         //Lambda Expression
         Counter incUpCounter = c -> {
@@ -173,17 +197,34 @@ public class UpdateCustomer{
         }
     }
 
+    /**
+     * Cancel Button.
+     * Changes stage to the Customer Menu FXML, but first asks user to confirm action.
+     * @param actionEvent cancelbttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
-        combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
-            return s;
-        };
-        IOClass.insertLog(stringComb.cString("Cancel button hit, going back to customer Menu"));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("All values will not be updated! Do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Cancel button hit, going back to customer Menu"));
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 }
 

@@ -23,9 +23,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static DBA.JDBC.connection;
 
+/**
+ * Update Appointment Class.
+ * @author Rene Gomez Student ID: 001467443
+ */
 public class UpdateAppointment {
     public TextField upAppAppIDTxt,upAppCustIDTxt,upAppUserIDTxt,upAppTitleTxt,upAppLocTxt;
     public TextArea upAppDescTxt;
@@ -43,6 +48,11 @@ public class UpdateAppointment {
     Stage stage;
     Parent scene;
 
+    /**
+     * Send Appointment.
+     * Allows data transfer from the Appointment Menu so that the selected customer is shown. It also sets the appropriate values to the labels/combo boxes.
+     * @param appointment the appointment is set to
+     */
     public void sendUpApp(DBAppointment appointment){
         ResultSet rs = null;
         upAppAppIDTxt.setText(String.valueOf(appointment.getAppID()));
@@ -98,6 +108,18 @@ public class UpdateAppointment {
         }
     }
 
+    /**
+     * Update Appointment Save Button.
+     * Attempts to update the appointment and change stage back to the Appointment Menu FXML. Also checks for logical errors, if any are found it displays an error/warning dialog box.
+     * @param actionEvent UpAppSaveBttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSIONS
+     * </b></p>
+     * <p><b>
+     *     The first expression combines a string and inserts it into the log. The second expression increase the Addition Counter.
+     * </b></p>
+     */
     public void onActionUpAppSaveBttn(ActionEvent actionEvent){
         //Lambda Expression
         Counter incUpCounter = c -> {
@@ -269,17 +291,34 @@ public class UpdateAppointment {
         }
     }
 
+    /**
+     * Cancel Button.
+     * Changes stage to the Appointment Menu FXML, but first asks user to confirm action.
+     * @param actionEvent cancelbttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionUpCustCancelBttn(ActionEvent actionEvent) throws IOException {
-        //Lambda Expression
-        combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
-            return s;
-        };
-        IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Appointment Menu"));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("All values will be cleared! Do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            //Lambda Expression
+            combString stringComb = s -> {
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                return s;
+            };
+            IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Appointment Menu"));
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/AppointmentMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 }

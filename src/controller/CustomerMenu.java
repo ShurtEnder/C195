@@ -20,20 +20,23 @@ import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
+/**
+ * Customer Menu Class.
+ * @author Rene Gomez Student ID: 001467443
+ */
 public class CustomerMenu implements Initializable {
     public TableView custTableView;
-    public TableColumn custIDCol;
-    public TableColumn custNameCol;
-    public TableColumn custAddCol;
-    public TableColumn custCodeCol;
-    public TableColumn custPhoneCol;
-    public TableColumn custFDLCol;
+    public TableColumn custIDCol,custNameCol,custAddCol,custCodeCol,custPhoneCol,custFDLCol;
     private String sqlQuery = "SELECT Appointment_ID, Customer_ID, Title, Location, Type, Start, End FROM appointments WHERE Customer_ID = ?";
     private String sqlQuery2 = "DELETE FROM client_schedule.customers WHERE Customer_ID = ?";
 
     Stage stage;
     Parent scene;
 
+    /**
+     * Initialize.
+     * Searches the database for customer information and sets the tableviews/columns.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResultSet rs = null;
@@ -72,6 +75,18 @@ public class CustomerMenu implements Initializable {
         custFDLCol.setCellValueFactory(new PropertyValueFactory<>("custDID"));
     }
 
+    /**
+     * Add Customer Button.
+     * Changes stage to the Add Customer FXML.
+     * @param actionEvent AddCustBttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
@@ -84,6 +99,18 @@ public class CustomerMenu implements Initializable {
         stage.show();
     }
 
+    /**
+     * Update Customer Button.
+     * Changes stage to the Update Customer FXML and sends the selected customer to that controller. If nothing is selected it shows an error pop up.
+     * @param actionEvent UpCustBttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionUpCustBttn(ActionEvent actionEvent) throws IOException {
         try {
             combString stringComb = s -> {
@@ -108,6 +135,17 @@ public class CustomerMenu implements Initializable {
         }
     }
 
+    /**
+     * Delete Customer Button.
+     * Deletes a selected customer on the customer table, showing a confirmation dialog box. If nothing is selected it shows an error pop up.
+     * @param actionEvent
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionDelCustBttn(ActionEvent actionEvent) {
         boolean appThere = false;
         try {
@@ -146,7 +184,6 @@ public class CustomerMenu implements Initializable {
                         DBCustomer dbInfo = new DBCustomer(custID, custName, custAdd, custPC, custPhone, custDID);
                         DataProvider.addCustomer(dbInfo);
                     }
-
                 }
             }
         } catch (SQLException e) {
@@ -157,6 +194,18 @@ public class CustomerMenu implements Initializable {
 
     }
 
+    /**
+     * Add Appointment Button.
+     * Changes stage to the Add Appointment FXML and sends the selected customer to that controller. If nothing is selected it shows an error pop up.
+     * @param actionEvent
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionAddAppBttn(ActionEvent actionEvent) throws IOException {
         try {
             combString stringComb = s -> {
@@ -183,6 +232,18 @@ public class CustomerMenu implements Initializable {
 
     }
 
+    /**
+     * Back Button.
+     * Changes stage to the Start Menu FXML.
+     * @param actionEvent back button click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionCustBackBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;

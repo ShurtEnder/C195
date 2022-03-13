@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.DBCountryDID;
 import model.DataProvider;
@@ -26,10 +23,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
+/**
+ * Add Customer Class.
+ * @author Rene Gomez Student ID: 001467443
+ */
 public class AddCustomer implements Initializable {
     public TextField addCustIDTxt,addCustNameTxt,addCustAddressTxt,addCustPCodeTxt,addCustPNumberTxt;
     public ComboBox addCustCountyCombo,addCustFLDCombo;
@@ -38,6 +40,24 @@ public class AddCustomer implements Initializable {
     Stage stage;
     Parent scene;
 
+    /**
+     * Initialize.
+     * Sets the Country Table view with vales.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList list = FXCollections.observableArrayList();
+        for(DBCountryDID country : DataProvider.getAllCountry()){
+            list.add(country.getCountry());
+        }
+        addCustCountyCombo.setItems(list);
+    }
+
+    /**
+     * Customer Country Combo.
+     * On selection of a country, the customer First Level Division combo box is populated.
+     * @param actionEvent on select country
+     */
     public void onActionAddCustCountyCombo(ActionEvent actionEvent) {
         int countryID = 0;
         ObservableList list = FXCollections.observableArrayList();
@@ -62,6 +82,18 @@ public class AddCustomer implements Initializable {
 
     }
 
+    /**
+     * Customer Save Button.
+     * Attempts to save a customer and change stage back to the Customer Menu FXML. Also checks for logical errors, if any are found it displays an error/warning dialog box.
+     * @param actionEvent AddCustSaveBttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSIONS
+     * </b></p>
+     * <p><b>
+     *     The first expression combines a string and inserts it into the log. The second expression increase the Addition Counter.
+     * </b></p>
+     */
     public void onActionAddCustSaveBttn(ActionEvent actionEvent) throws IOException {
         //Lambda expression
         Counter incAddCounter = c -> {
@@ -127,26 +159,36 @@ public class AddCustomer implements Initializable {
 
     }
 
+    /**
+     * Cancel Button.
+     * Changes stage to the Customer Menu FXML, but first asks user to confirm action.
+     * @param actionEvent cancelbttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionAddCustCancelBttn(ActionEvent actionEvent) throws IOException {
-        //Lambda Expression
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("All values will be cleared! Do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            //Lambda Expression
             combString stringComb = s -> {
                 s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Customer Menu"));
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/CustomerMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList list = FXCollections.observableArrayList();
-        for(DBCountryDID country : DataProvider.getAllCountry()){
-            list.add(country.getCountry());
-        }
-        addCustCountyCombo.setItems(list);
-    }
+
 }

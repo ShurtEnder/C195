@@ -394,3 +394,12 @@
 2022-03-13T15:38:34.344534400Z User 1: No filter radio button selected
 2022-03-13T15:38:34.345536400Z User 1: No filter radio button selected
 2022-03-13T15:38:34.346534300Z User 1: No filter radio button selected
+2022-03-13T18:27:43.412655100Z User 1: Login attempt success !
+2022-03-13T18:27:47.175959500Z User 1: Appointment menu button hit!
+2022-03-13T18:27:49.058649700Z User 1: Back button hit, going back to Start Menu
+2022-03-13T18:27:50.374848300Z User 1: Customer menu button hit!
+2022-03-13T18:27:51.836175700Z User 1: Back button hit, going back to Start Menu
+2022-03-13T18:27:52.848096300Z User 1: Appointment menu button hit!
+2022-03-13T18:27:54.120251900Z User 1: Back button hit, going back to Start Menu
+2022-03-13T18:27:54.823415500Z User 1: Customer menu button hit!
+2022-03-13T18:27:57.483433900Z User 1: Back button hit, going back to Start Menu

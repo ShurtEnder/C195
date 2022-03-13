@@ -39,6 +39,10 @@ public class AppointmentMenu implements Initializable {
     Stage stage;
     Parent scene;
 
+    /**
+     * Initialize.
+     * Searches the database for appointment information and sets the tableviews/columns.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResultSet rs = null;
@@ -83,6 +87,17 @@ public class AppointmentMenu implements Initializable {
         localDate = LocalDate.now();
     }
 
+    /**
+     * Month Radio Button.
+     * When selected it filters the appointment table to the current month.
+     * @param actionEvent on MonthRBttn click
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionMonthRBttn(ActionEvent actionEvent) {
         ResultSet rs = null;
         if(!(DataProvider.getAllAppointments().isEmpty())){
@@ -91,8 +106,6 @@ public class AppointmentMenu implements Initializable {
         try {
             PreparedStatement psti = connection.prepareStatement(sqlQuery3);
             psti.setString(1, String.valueOf(localDate.getMonthValue()));
-//            psti.setString(2, String.valueOf(localDateMEnd));
-//            psti.setString(3, String.valueOf(localDateMEnd));
             rs = psti.executeQuery();
             while(rs.next()){
                 int appID = rs.getInt(1);
@@ -123,6 +136,17 @@ public class AppointmentMenu implements Initializable {
         }
     }
 
+    /**
+     * Week Radio Button.
+     * When selected it filters the appointment table to the current week.
+     * @param actionEvent on WeekRBttn click
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionWeekRBttn(ActionEvent actionEvent) {
         ResultSet rs = null;
         if(!(DataProvider.getAllAppointments().isEmpty())){
@@ -161,6 +185,17 @@ public class AppointmentMenu implements Initializable {
         }
     }
 
+    /**
+     * No Filter Radio Button.
+     * When selected it filters the appointment table to all appointments.
+     * @param actionEvent on NoFilterRBttn click
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionNoFilterRBttn(ActionEvent actionEvent) {
         ResultSet rs = null;
         if(!(DataProvider.getAllAppointments().isEmpty())){
@@ -198,6 +233,18 @@ public class AppointmentMenu implements Initializable {
         }
     }
 
+    /**
+     * Update Appointment Button.
+     * Changes stage to the Update Appointment FXML and sends the selected customer to that controller. If nothing is selected it shows an error pop up.
+     * @param actionEvent UpAppBttn click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionUpdateAppBttn(ActionEvent actionEvent) throws IOException {
         try {
             //Lambda Expression
@@ -223,6 +270,17 @@ public class AppointmentMenu implements Initializable {
         }
     }
 
+    /**
+     * Remove Appointment Button.
+     * Removes a selected appointment on the appointment table, showing a confirmation dialog box. If nothing is selected it shows an error pop up.
+     * @param actionEvent
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionRemoveAppBttn(ActionEvent actionEvent) {
         try {
             ResultSet rs = null;
@@ -275,6 +333,18 @@ public class AppointmentMenu implements Initializable {
         }
     }
 
+    /**
+     * Back Button.
+     * Changes stage to the Start Menu FXML.
+     * @param actionEvent back button click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
         //Lambda Expression
         combString stringComb = s -> {

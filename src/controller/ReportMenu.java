@@ -25,6 +25,10 @@ import java.util.ResourceBundle;
 
 import static DBA.JDBC.connection;
 
+/**
+ * Report Menu Class.
+ * @author Rene Gomez Student ID: 001467443
+ */
 public class ReportMenu implements Initializable {
     public ComboBox MonthComboLbl, TypeComboLbl, contactComboLbl;
     public Label reportOneLbl,newCACounter,upCACounter;
@@ -40,61 +44,10 @@ public class ReportMenu implements Initializable {
     Stage stage;
     Parent scene;
 
-
-    public void OnActionMonthCombo(ActionEvent actionEvent) throws SQLException {
-        PreparedStatement psti = connection.prepareStatement(sqlQuery);
-        ResultSet rs = null;
-        int counter = 0;
-        if(TypeComboLbl.getValue() == null){
-            return;
-        }
-        else {
-            psti.setInt(1,monthList.indexOf(MonthComboLbl.getSelectionModel().getSelectedItem()) + 1);
-            psti.setString(2, (String) TypeComboLbl.getSelectionModel().getSelectedItem());
-            rs = psti.executeQuery();
-            while (rs.next()){
-                counter++;
-            }
-            reportOneLbl.setText(String.valueOf(counter));
-        }
-    }
-
-    public void onActionTypeCombo(ActionEvent actionEvent) throws SQLException {
-        PreparedStatement psti = connection.prepareStatement(sqlQuery);
-        ResultSet rs = null;
-        int counter = 0;
-        if(MonthComboLbl.getValue() == null){
-            return;
-        }
-        else {
-
-            psti.setInt(1,monthList.indexOf(MonthComboLbl.getSelectionModel().getSelectedItem()) + 1);
-            psti.setString(2, (String) TypeComboLbl.getSelectionModel().getSelectedItem());
-            rs = psti.executeQuery();
-            while (rs.next()){
-                counter++;
-            }
-            reportOneLbl.setText(String.valueOf(counter));
-        }
-    }
-
-    public void onActionContactCombo(ActionEvent actionEvent) throws SQLException {
-        contTableList.clear();
-        PreparedStatement psti2 = connection.prepareStatement(sqlQuery1);
-        ResultSet rs = null;
-        psti2.setString(1, String.valueOf(contactComboLbl.getSelectionModel().getSelectedItem()));
-        int contID = 0;
-        rs = psti2.executeQuery();
-        while (rs.next()){
-            contID = rs.getInt(1);
-        }
-        for (DBAppointment app : DataProvider.getAllAppointments()){
-            if(app.getContact() == contID){
-                contTableList.add(app);
-            }
-        }
-    }
-
+    /**
+     * Initialize.
+     * Sets the tableviews/columns and combo boxes.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         contTableList.clear();
@@ -148,6 +101,90 @@ public class ReportMenu implements Initializable {
         }
     }
 
+    /**
+     * Month Combo box.
+     * If both month and type combo boxes are selected then it will search within the database for the month that contains the type.
+     * @param actionEvent on combo box select
+     * @throws SQLException
+     */
+    public void OnActionMonthCombo(ActionEvent actionEvent) throws SQLException {
+        PreparedStatement psti = connection.prepareStatement(sqlQuery);
+        ResultSet rs = null;
+        int counter = 0;
+        if(TypeComboLbl.getValue() == null){
+            return;
+        }
+        else {
+            psti.setInt(1,monthList.indexOf(MonthComboLbl.getSelectionModel().getSelectedItem()) + 1);
+            psti.setString(2, (String) TypeComboLbl.getSelectionModel().getSelectedItem());
+            rs = psti.executeQuery();
+            while (rs.next()){
+                counter++;
+            }
+            reportOneLbl.setText(String.valueOf(counter));
+        }
+    }
+
+    /**
+     * Type Combo box.
+     * If both month and type combo boxes are selected then it will search within the database for the month that contains the type.
+     * @param actionEvent on combo box select
+     * @throws SQLException
+     */
+    public void onActionTypeCombo(ActionEvent actionEvent) throws SQLException {
+        PreparedStatement psti = connection.prepareStatement(sqlQuery);
+        ResultSet rs = null;
+        int counter = 0;
+        if(MonthComboLbl.getValue() == null){
+            return;
+        }
+        else {
+
+            psti.setInt(1,monthList.indexOf(MonthComboLbl.getSelectionModel().getSelectedItem()) + 1);
+            psti.setString(2, (String) TypeComboLbl.getSelectionModel().getSelectedItem());
+            rs = psti.executeQuery();
+            while (rs.next()){
+                counter++;
+            }
+            reportOneLbl.setText(String.valueOf(counter));
+        }
+    }
+
+    /**
+     * Contact Combo box.
+     * When contact is selected it search within the database to search for appointments containing that contact and populates the contact table view to those values.
+     * @param actionEvent on combo box select
+     * @throws SQLException
+     */
+    public void onActionContactCombo(ActionEvent actionEvent) throws SQLException {
+        contTableList.clear();
+        PreparedStatement psti2 = connection.prepareStatement(sqlQuery1);
+        ResultSet rs = null;
+        psti2.setString(1, String.valueOf(contactComboLbl.getSelectionModel().getSelectedItem()));
+        int contID = 0;
+        rs = psti2.executeQuery();
+        while (rs.next()){
+            contID = rs.getInt(1);
+        }
+        for (DBAppointment app : DataProvider.getAllAppointments()){
+            if(app.getContact() == contID){
+                contTableList.add(app);
+            }
+        }
+    }
+
+    /**
+     * Back Button.
+     * Changes stage to the Start Menu FXML.
+     * @param actionEvent back button click
+     * @throws IOException
+     * <p><b>
+     *     LAMBDA EXPRESSION
+     * </b></p>
+     * <p><b>
+     *     This expression combines a string and inserts it into the log.
+     * </b></p>
+     */
     public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
             s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
