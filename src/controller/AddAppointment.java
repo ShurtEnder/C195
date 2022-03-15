@@ -222,7 +222,7 @@ public class AddAppointment{
                     psti.execute();
                     //Lambda Expression
                     combString stringComb = s -> {
-                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                         return s;
                     };
                     IOClass.insertLog(stringComb.cString("New appointment has been added!"));
@@ -274,7 +274,7 @@ public class AddAppointment{
         if (result.isPresent() && result.get() == ButtonType.OK) {
             //Lambda Expression
             combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Cancel button hit, going back to Customer Menu"));

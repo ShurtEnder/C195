@@ -38,7 +38,7 @@ public class StartMenu {
      */
     public void onActionCustMenuBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Customer menu button hit!"));
@@ -62,7 +62,7 @@ public class StartMenu {
      */
     public void onActionAppMenuBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Appointment menu button hit!"));
@@ -86,7 +86,7 @@ public class StartMenu {
      */
     public void onActionReportsBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Report menu button hit!"));
@@ -113,7 +113,7 @@ public class StartMenu {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Logout button hit!"));

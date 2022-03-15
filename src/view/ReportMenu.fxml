@@ -39,7 +39,7 @@
                         </TableView>
                     </children>
                 </HBox>
-            <Label text="Extra Report:">
+            <Label text="Extra Report Session Stats:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

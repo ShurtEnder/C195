@@ -89,7 +89,7 @@ public class CustomerMenu implements Initializable {
      */
     public void onActionAddCustBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Add customer button hit"));
@@ -114,7 +114,7 @@ public class CustomerMenu implements Initializable {
     public void onActionUpCustBttn(ActionEvent actionEvent) throws IOException {
         try {
             combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Update customer button hit"));
@@ -166,10 +166,15 @@ public class CustomerMenu implements Initializable {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     psti2.execute();
                     combString stringComb = s -> {
-                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                         return s;
                     };
                     IOClass.insertLog(stringComb.cString("Customer ID: " + custID2 + "has been removed!"));
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setContentText("The following customer has been deleted!" +"\n \n" + "Customer ID: " + custID2 +"\n" + "Name: " + ((DBCustomer) custTableView.getSelectionModel().getSelectedItem()).getCustName());
+                    alert2.setTitle("Info");
+                    alert2.showAndWait();
 
                     DataProvider.getAllCustomers().clear();
                     Statement stmt = connection.createStatement();
@@ -209,7 +214,7 @@ public class CustomerMenu implements Initializable {
     public void onActionAddAppBttn(ActionEvent actionEvent) throws IOException {
         try {
             combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Add appointment button hit"));
@@ -246,7 +251,7 @@ public class CustomerMenu implements Initializable {
      */
     public void onActionCustBackBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));

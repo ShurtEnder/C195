@@ -124,7 +124,7 @@ public class AppointmentMenu implements Initializable {
                 DataProvider.addAppointment(appointment);
                 //Lambda Expression
                 combString stringComb = s -> {
-                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("Month radio button selected"));
@@ -173,7 +173,7 @@ public class AppointmentMenu implements Initializable {
                 DataProvider.addAppointment(appointment);
                 //Lambda Expression
                 combString stringComb = s -> {
-                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("Week radio button selected"));
@@ -221,7 +221,7 @@ public class AppointmentMenu implements Initializable {
                 DataProvider.addAppointment(appointment);
                 //Lambda Expression
                 combString stringComb = s -> {
-                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("No filter radio button selected"));
@@ -249,7 +249,7 @@ public class AppointmentMenu implements Initializable {
         try {
             //Lambda Expression
             combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Update application button hit"));
@@ -298,9 +298,15 @@ public class AppointmentMenu implements Initializable {
                     PreparedStatement psti = connection.prepareStatement(sqlQuery);
                     psti.setInt(1, appID);
                     psti.execute();
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setContentText("The following appointment has been removed!" +"\n \n" + "Appointment ID: " + appID +"\n" + "Type: " + ((DBAppointment) appVAppTableView.getSelectionModel().getSelectedItem()).getType());
+                    alert2.setTitle("Info");
+                    alert2.showAndWait();
+
                     //Lambda Expression
                     combString stringComb = s -> {
-                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                        s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                         return s;
                     };
                     IOClass.insertLog(stringComb.cString("Appointment ID: " + appID + " was removed!"));
@@ -348,7 +354,7 @@ public class AppointmentMenu implements Initializable {
     public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
         //Lambda Expression
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));

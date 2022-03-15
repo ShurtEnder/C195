@@ -177,7 +177,7 @@ public class UpdateCustomer{
                 psti.execute();
                 //Lambda Expression
                 combString stringComb = s -> {
-                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                    s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                     return s;
                 };
                 IOClass.insertLog(stringComb.cString("Customer ID: " + custID + " has been updated!"));
@@ -215,7 +215,7 @@ public class UpdateCustomer{
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             combString stringComb = s -> {
-                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+                s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
                 return s;
             };
             IOClass.insertLog(stringComb.cString("Cancel button hit, going back to customer Menu"));

@@ -187,7 +187,7 @@ public class ReportMenu implements Initializable {
      */
     public void onActionBackBttn(ActionEvent actionEvent) throws IOException {
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + LoginPage.userNameUsed + ": " + s;
             return s;
         };
         IOClass.insertLog(stringComb.cString("Back button hit, going back to Start Menu"));

@@ -36,6 +36,7 @@ public class LoginPage implements Initializable {
     public TextField userNameTxt,passwordTxt;
     public Button loginBttnTxt,exitBttnTxt;
     public static int userID;
+    public static String userNameUsed;
     private String sqlQuery = "SELECT Appointment_ID, Start FROM client_schedule.appointments WHERE Start BETWEEN ? AND ? AND USER_ID = ?";
     private ArrayList wordList = new ArrayList<>();
 
@@ -174,9 +175,10 @@ public class LoginPage implements Initializable {
      * @throws IOException
      */
     public void onActionLoginBttn(ActionEvent actionEvent) throws SQLException, IOException {
+        userNameUsed = userNameTxt.getText();
         //Lambda Expression
         combString stringComb = s -> {
-            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + userID + ": " + s;
+            s = TimeFunctions.getLoctoUTC(LocalDateTime.now()) + " User " + userNameUsed + ": " + s;
             return s;
         };
         ResourceBundle rb = getBundle("Lan/Nat", Locale.getDefault());
